@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="D:\MY\PROGECT_C++\KURSOVI_DIPLOMA\DIPLOMA_SEARCH_WORCK_OK\Project\Search_Work\obj\Release\net461\win7-x86\PubTmp\Out\" />
+  <dbfullsql path="D:\MY\PROGECT_C++\KURSOVI_DIPLOMA\DIPLOMA_SEARCH_WORCK_OK\Project\Search_Work\obj\Release\net461\win7-x86\PubTmp\EFSQLScripts\Search_Work.Data.oxana1404.sql" />
+</sitemanifest>

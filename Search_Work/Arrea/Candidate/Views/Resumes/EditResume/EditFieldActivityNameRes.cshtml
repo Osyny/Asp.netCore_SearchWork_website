@@ -1,0 +1,39 @@
+﻿
+@model Search_Work.Arrea.Candidate.Models.Resume.EditFieldActivityViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="container">
+
+    <div style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.Resume.Name</b></h3>
+
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>Змiнити сферу діятельності</b></h3>
+
+    </div>
+
+</div>
+
+
+<hr />
+<div class="row" id="container">
+    <form method="post" asp-action="EditFieldActivity" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <hr />
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+
+        <h4>@Model.FieldActivityName</h4>
+        <hr />
+        @Html.DropDownList("FieldActivityId", Model.FieldActivities);
+         <hr />
+        <button type="submit">Зберегти</button>
+
+    </form>
+</div>

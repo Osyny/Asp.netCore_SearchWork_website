@@ -1,0 +1,43 @@
+﻿@model Search_Work.Models.ViewModel.Home.Resumes.PageFieldWhithResumeViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h3><b>Резюме за сферами діяльності </b></h3>
+</div>
+<hr />
+<div class="row" id="container">
+    <div class="row" id="container" style="float: left; width: 49%; margin-left: 10px;">
+        @for (var i = 0; i  < Model.ResumesByFieldActivity.Count() / 2; i++)
+        {
+            <a href="@Url.Action("ResumeCatalogByActivityField", "ResumeHome", new { fieldActivityId = Model.ResumesByFieldActivity[i].FieldActivityId })">
+                <p>@Model.ResumesByFieldActivity[i].FieldActivityName ( @Model.ResumesByFieldActivity[i].CountResumeByFieldActivity )</p>
+            </a>
+        }
+    </div>
+    <div class="row" id="container" style="float: left; width: 49%; margin-left: 20px;">
+        @for (var i = Model.ResumesByFieldActivity.Count() / 2; i < Model.ResumesByFieldActivity.Count(); i++)
+        {
+            <a href="@Url.Action("ResumeCatalogByActivityField", "ResumeHome", new { fieldActivityId = Model.ResumesByFieldActivity[i].FieldActivityId })">
+                <p>@Model.ResumesByFieldActivity[i].FieldActivityName ( @Model.ResumesByFieldActivity[i].CountResumeByFieldActivity )</p>
+            </a>
+        }
+
+    </div>
+</div>
+
+
+
+
+<style>
+    #container {
+        background-color: dff0d8e6;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+        
+        text-align: center;
+    }
+</style>

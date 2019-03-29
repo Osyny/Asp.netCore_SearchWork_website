@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Этот файл используется процессом публикации или упаковки вашего веб-проекта. Можно настроить поведение этого процесса,
+изменив этот файл MSBuild. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAARjQ+WMEbFUCVcC4/ZnTu3AAAAAACAAAAAAAQZgAAAAEAACAAAACoYK3xgpGk77PZpzcqrrBFxqji/OTVtHqh2fb+x9V7gAAAAAAOgAAAAAIAACAAAABcQIjbGGTLySJpJVjkQJXyYE72MrObHwj2pDuXKHGi6oAAAAB2ucgvngP9L8DgAyyxrtsfOmHknbD5c4D4y7+LmU5dGah+4rBWeBbYc2VMZIvbazaDhLm0w5J0dhwZnBWlQfeTxBaj/bnm342UMJtfzNt1uSvsK2ilwaTe+k98MoksMIf+yeNOmWkur6RxGx1OBBabBZwl/B3pqXbLsVCGZV+VLUAAAABrlicrVM726A55YnAQrSz7UFr8oW3ms6SrFVUp6QV1oJcf0rv3Rlu1q1BEPGM4MD34TnnxTLi+ZRbCTO28GPtu</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=sw-site-sql-server.database.windows.net%3bDatabase=oxana1404%3bUser Id=sqladmin%3bPassword=It31013107606</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Search_Work.Data.oxana1404">
+      <Value>Server=sw-site-sql-server.database.windows.net%3bDatabase=oxana1404%3bUser Id=sqladmin%3bPassword=It31013107606</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

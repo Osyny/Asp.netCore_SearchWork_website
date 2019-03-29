@@ -1,0 +1,36 @@
+﻿@model Search_Work.Models.ViewModel.Menu.MenuViewModel
+
+
+<div class="topMenuNavigation">
+    <div class="containerContent">
+        @foreach (var link in Model.Links)
+        {
+        <a href="@link.Link"> @link.Name</a>
+        }
+    </div>
+</div>
+
+<style>
+    /* The navbar container */
+    .topMenuNavigation {
+        overflow: hidden;
+        background-color: #333;
+    }
+
+        /* Navbar links */
+        .topMenuNavigation a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            /* Links - change color on hover */
+            .topMenuNavigation a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+</style>
+

@@ -1,0 +1,98 @@
+﻿@model Search_Work.Arrea.Candidate.Models.PageViewsListViewModel
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+        @*<a id="zcilka" href="@Url.Action("Index", "Resume")"><b> Moї резюме</b> </a>*@
+        
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+
+<div class="row" id="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h4><b>Назва комранії</b></h4>
+                </th>
+                <th>
+                    <h4><b>Дата перегляду</b></h4>
+                </th>
+
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model.Views)
+            {
+            <tr>
+                <td>
+                   
+                    <p>@v.Name</p>
+                </td>
+                <td>
+                    <p>@v.Date</p>
+                </td>
+                
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+        margin-left: 150px;
+        padding: 5px;
+    }
+
+    #zcilkaTopMenuNavigation {
+        
+    }
+
+    .cont {
+       
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+        
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>

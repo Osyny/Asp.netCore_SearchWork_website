@@ -1,0 +1,54 @@
+﻿@model Search_Work.Models.ViewModel.Home.Company.PageFieldActivityWhithVacancyViewModel
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h3><b>Вакансії за сферами діяльності</b></h3>
+</div>
+<hr />
+
+<div class="row" id="container">
+    <div class="row" id="container" style="float: left; width: 49%; margin-left: 20px;">
+        @for (var i = 0; i < Model.VacanciesByFieldActivity.Count() / 2; i++)
+        {
+            <a href="@Url.Action("VacancyCatalogByActivityField", "Vacancy", new {fieldActivityId = Model.VacanciesByFieldActivity[i].FieldActivityId})">
+                <p>@Model.VacanciesByFieldActivity[i].FieldActivityName
+</a><span>(@Model.VacanciesByFieldActivity[i].CountVacancyByFieldActivity) </span>
+        }
+    </div>
+    <div class="row" id="container" style="float: left; width: 49%">
+        @for (var i = Model.VacanciesByFieldActivity.Count() / 2; i < Model.VacanciesByFieldActivity.Count(); i++)
+        {
+            <a href="@Url.Action("VacancyCatalogByActivityField", "Vacancy", new {fieldActivityId = Model.VacanciesByFieldActivity[i].FieldActivityId})">
+                <p>@Model.VacanciesByFieldActivity[i].FieldActivityName
+            </a><span>(@Model.VacanciesByFieldActivity[i].CountVacancyByFieldActivity) </span>
+        }
+
+    </div>
+</div>
+
+
+<hr />
+
+<div class="row" id="container">
+
+
+          <button style="color:blue;" type="submit" onclick="location.href='@Url.Action("AddPaternSearchVacancy", "Vacancy")'">
+            <h3>Новий шаблон пошуку</h3>
+        </button>
+</div>
+<hr />
+
+<style>
+    #container {
+        background-color: dff0d8e6;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+        text-align: center;
+    }
+</style>

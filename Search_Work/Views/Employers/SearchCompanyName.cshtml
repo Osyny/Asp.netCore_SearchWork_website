@@ -1,0 +1,48 @@
+﻿@model Search_Work.Models.ViewModel.Employer.SearchCompanyNameViewModel
+@{
+    ViewData["Title"] = "SearchCompanyName";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div id="container">
+
+    <h3> Пошук компанії для реєстрації</h3>
+</div>
+<hr />
+<div id="container" class="form-horizontal">
+    <form method="post" asp-action="SearchCompanyName" asp-controller="Employers">
+
+        <input type="hidden" name="EmpId" value="@Model.EmpId" />
+        @*<input type="hidden" name="EmpId" value="@Model.CompanyId" />*@
+        <ul>
+            <li>
+                <h4>Користувач - @Model.NameEmp</h4>
+
+            </li>
+            <li>
+                <hr />
+                <select asp-for="CompanyId" asp-items="@Model.Companies">
+                    <option>Виберіть компанію</option>
+                </select>
+            </li>
+            <li>
+                <hr />
+                <input type="submit" />
+            </li>
+        </ul>
+    </form>
+</div>
+
+<style>
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+    }
+
+    .cont {
+    }
+</style>
+

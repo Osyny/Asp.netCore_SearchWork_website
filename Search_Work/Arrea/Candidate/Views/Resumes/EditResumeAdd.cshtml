@@ -1,0 +1,586 @@
+﻿@model Search_Work.Arrea.Candidate.Models.PageEditResumeViewModel;
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+
+        <a id="zcilka" href="@Url.Action("ResponsesToResume", "Vacancy", new {  })"><b> Відгуки</b> </a>
+        <a id="zcilka" href="@Url.Action("SavedVacancy", "Vacancy", new {  })"> <b>Збережені ( обране )</b> </a>
+        <a id="zcilka" href="@Url.Action("PaternSearchVacancy", "Vacancy", new {  })"> <b>Шаблони пошуку</b> </a>
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+
+<hr />
+<div class="row" id="container">
+    <h4>Редагувати профіль - @Model.Email</h4>
+
+    <hr />
+    <div class="c" style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.ResumeName</b></h3>
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.FotoUrl == null)
+            {
+                <img id="logo" src="~/images/LogoCompany.png" />
+            }
+            else
+            {
+                <img id="logo" src="@Model.FotoUrl " />
+
+            }
+
+
+        </div>
+    </div>
+    <div>
+
+        @if (Model.IsActiveResume == true || Model.IsActiveResume == null)
+        {
+            <h4 style="color : blue;"><b>Резюме активно</b></h4>
+        }
+        else
+        {
+            <h3 style="color : #DF0101;"><b>Резюме неактивно</b></h3>
+
+        }
+        @*<input type="checkbox" name="IsActiveResume" value="true" checked />*@
+        <hr />
+
+
+        <hr />
+
+        @if (Model.IsAnonymousResume == true)
+        {
+            <h4 style="color : #DF0101;"><b>Резюме анонімне</b></h4>
+        }
+        else
+        {
+            <h4 style="color : blue;"><b>Зробити pезюме анонімне</b></h4>
+        }
+
+
+
+        <hr />
+
+        <a href="@Url.Action( "EditAvatarActivResume", "EditResume", new { resumeId = Model.Id })">
+            <b>Змінити</b>
+        </a>
+    </div>
+</div>
+<hr />
+<div id="container">
+
+    <p> Цiль подачi резюме ( На яку спеціальність )</p>
+    <input value="@Model.ResumeName" />
+
+    <hr />
+    <h4><b> Сфера діятельності </b></h4>
+    <hr />
+    @for (var i = 0; i < Model.FieldsActivitySelect.Count; i++)
+    {
+      
+        <input value="@Model.FieldsActivitySelect[i].Name" />
+        <a href="@Url.Action( "EditFieldActivityNameRes", "EditResume", new { resumeId = Model.FieldsActivitySelect[i].Id})">
+            <b>Змінити</b>
+        </a>
+        <hr />
+    }
+
+    <hr />
+    <a href="@Url.Action( "AddFieldActivitiy", "EditResume", new { resumeId = Model.Id })">
+        <h3><b>Добавити</b></h3>
+    </a>
+
+
+
+</div>
+<hr />
+<div>
+    <div id="container">
+        <h4><b> Контактна і загальна інформація </b></h4>
+        @if (!Model.IsAnonymousResume)
+        {
+
+
+        <p> Прізвище : <b>@Model.LastName</p>
+           
+        <p> Імя :<b>@Model.CandidateName </b></p>
+            <p> Побатькові : <b>@Model.Surname</b></p>
+            <p> Стать : <b>@Model.Sex </b></p>
+            <hr />
+            <p> Дата народження : <b>@Model.Birthday.ToString("dd/MM/yyyy")</b></p>
+           
+            <p> Fasebook : <b>@Model.Fasebook</b> </p>
+           
+            <p> Телефон : <b>@Model.Phone</b> </p>
+           
+            <p> Email : <b>@Model.Email</b></p>
+           
+            <p> Skipe : <b>@Model.Skype</b></p>
+          
+        }
+        else
+        {
+            <h3 style="color : #DF0101;"><b> Анонімне резюме </b></h3>
+
+        }
+        <hr>
+
+
+
+        <h4><b>Проживання </b></h4>
+
+        <input value="@Model.Country, @Model.Region обл., @Model.CityResident, вул. @Model.Street" />
+
+
+        <hr />
+
+        <h4><b>Сімейний стан</b></h4>
+        <input type="text" name="FamilyStatusName" placeholder="" value="@Model.FamilyStatusName" />
+
+
+
+
+        <hr />
+
+        <h4><b> Діти </b></h4>
+
+        <input type="text" name="ChildrenName" placeholder="" value="@Model.ChildrenName" />
+
+
+
+        <hr />
+        <a href="@Url.Action( "EditContactInfo", "EditResume", new { resumeId = Model.Id })">
+            <h3><b>Змінити</b></h3>
+        </a>
+    </div>
+</div>
+
+<hr>
+<div id="container">
+    <h3><b> Досвід роботи </b></h3>
+
+    @for (int i = 0; i < Model.Experiences.Count; i++)
+    {
+        <ul>
+            <li>
+                <div id="container">
+
+                    <h4><b> Організація </b></h4>
+                    <input type="text" name="Experiences[i].NameCompany" placeholder="name" value="@Model.Experiences[i].NameCompany" />
+                    <input type="hidden" name="Experiences[i].Id" value="@Model.Experiences[i].Id" />
+
+                    <h4><b> Период з : </b></h4>
+                    @*<input type="text" name="calendar" value="@e.DateWorkFrom.ToString("d")" readonly />*@
+                    <input type="date" name="Experiences[i].DateWorkFrom" value="@Model.Experiences[i].DateWorkFrom.ToString("yyyy-MM-dd")" />
+                    <p>
+                        <h4><b> до : </b></h4>
+                        @*<input type="text" name="calendar" value="@e.DateWorkTo.ToString("d")" readonly />*@
+                        <input type="date" name="Experiences[i].DateWorkTo" value="@Model.Experiences[i].DateWorkTo.ToString("yyyy-MM-dd")" />
+                    </p>
+                    @{
+                        var chekedAtribute = "";
+                        if (Model.Experiences[i].IsWorkingNow == true)
+                        {
+                            chekedAtribute = "checked";
+                        }
+                    }
+                    <p>
+                        @* <input type="checkbox" id="IsWorkingNowId" name="IsWorkingNow" value="true" @chekedAtribute />*@
+                        <h4 style="color: blue;"><b>Працюю зараз</b></h4>
+
+                    </p>
+                    <hr />
+
+
+                    <h4><b> Зайнятiсть </b></h4>
+
+
+
+                    <div>
+                        <select name="Experiences[i].EmploymentId">
+                            @for (var j = 0; j < Model.Experiences[i].Employments.Count; j++)
+                            {
+                                string guidValue = Model.Experiences[i].Employments[j].Value;
+                                string selectedValue = Model.Experiences[i].EmploymentId.ToString().ToUpper();
+                                if (guidValue == selectedValue)
+                                {
+                                    <option value="@Model.Experiences[i].Employments[j].Value" selected>@Model.Experiences[i].Employments[j].Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@Model.Experiences[i].Employments[j].Value">@Model.Experiences[i].Employments[j].Text</option>
+                                }
+
+
+                            }
+
+                        </select>
+                    </div>
+                    <hr />
+
+
+                    <h4><b> Посада </b></h4>
+                    <input type="text" name="Experiences[i].Position" placeholder="Название" value="@Model.Experiences[i].Position" />
+
+                    <h4><b> Задачі</b></h4>
+                    <input type="text" name="Experiences[i].Task" placeholder="Название" value="@Model.Experiences[i].Task" />
+
+                    <h4><b> Досягнення </b></h4>
+                    <input type="text" name="Experiences[i].Progres" placeholder="Название" value="@Model.Experiences[i].Progres" />
+                    <hr />
+                </div>
+            </li>
+        </ul>
+        <a href="@Url.Action( "EditExpiriance", "EditResume", new { exId = Model.Experiences[i].Id})">
+            <b>Змінити</b>
+        </a>
+        <hr />
+    }
+    @*<button type="button" onclick="location.href='@Url.Action("AddExperiences", "EditResume" , new { resumeId == Model.Id})'"> Нове резюме </button>*@
+    @*<a href="@Url.Action("AddExperiences", "EditResume" , new { resumeId == Model.Id})"> Добавити )"></a>*@
+
+    <a href="@Url.Action( @*"EditResume"*@ "AddExperiences", "EditResume", new { resumeId = Model.Id })">
+        <h3> <b>Добавити</b></h3>
+    </a>
+</div>
+<hr>
+<div id="container">
+
+    <h3><b> Реализовані пректи </b></h3>
+
+    @for (var i = 0; i < Model.ImplementedProjects.Count; i++)
+    {
+
+        <input type="text" name="ImplementedProjects[i].NameProgect" placeholder="Name" value="@Model.ImplementedProjects[i].NameProgect" />
+        <input type="hidden" name="ImplementedProjects[i].Id" value="@Model.ImplementedProjects[i].Id" />
+
+        <h4><b> Період з : </b></h4>
+
+        <input type="date" name="ImplementedProjects[i].DateWorkFrom" value="@Model.ImplementedProjects[i].DateWorkFrom.ToString("yyyy-MM-dd")" />
+
+
+        <h4><b> до : </b></h4>
+
+        <input type="date" name="ImplementedProjects[i].DateWorkTo" value="@Model.ImplementedProjects[i].DateWorkTo.ToString("yyyy-MM-dd")" />
+        <h4><b> Ссылка </b></h4>
+
+        <input type="text" name="ImplementedProjects[i].LinkToProgect" value="@Model.ImplementedProjects[i].LinkToProgect" />
+
+    }
+    <hr />
+
+    <a href="@Url.Action( "AddImplementedProjects", "EditResume", new { resumeId = Model.Id })">
+        <b>Додати</b>
+    </a>
+
+</div>
+
+<hr />
+
+<div id="container">
+    <h3><b> Освіта</b></h3>
+
+
+    @for (var i = 0; i < Model.Educations.Count; i++)
+    {
+        <input type="hidden" name="Educations[i].Id" placeholder="Название" value="" />
+
+
+        <div>
+            <select name="Educations[i].EmploymentId">
+                @for (var j = 0; j < Model.Educations[i].LevelsEducation.Count; j++)
+                {
+                    string guidValue = Model.Educations[i].LevelsEducation[j].Value;
+                    string selectedValue = Model.Educations[i].LevelEducationId.ToString().ToUpper();
+                    if (guidValue == selectedValue)
+                    {
+                        <option value="@Model.Educations[i].LevelsEducation[j].Value" selected>@Model.Educations[i].LevelsEducation[j].Text</option>
+                    }
+                    else
+                    {
+                        <option value="@Model.Educations[i].LevelsEducation[j].Value">@Model.Educations[i].LevelsEducation[j].Text</option>
+                    }
+                }
+
+
+
+                }
+
+            </select>
+        </div>
+        <hr />
+        <h4><b> Місто ВУЗ-а </b></h4>
+        <input type="text" name="Educations[i].City" placeholder="місто" value="@Model.Educations[i].City" />
+
+
+
+        <h4><b> Назва ВУЗ-а </b></h4>
+        <input type="text" name="Educations[i].NameInstitution" placeholder="Название" value="@Model.Educations[i].NameInstitution" />
+
+        <h4><b> Специализація</b></h4>
+        <input type="text" name="Educations[i].Specialization" placeholder="Название" value="@Model.Educations[i].Specialization" />
+
+        <h4><b> Форма навчання</b></h4>
+
+        <select name="Educations[i].FormTrainingId">
+            @for (var k = 0; k < Model.Educations[i].FormTrainings.Count; k++)
+            {
+                string guidValue = Model.Educations[i].FormTrainings[k].Value;
+                string selectedValue = Model.Educations[i].FormTrainingId.ToString().ToUpper();
+                if (guidValue == selectedValue)
+                {
+                    <option value="@Model.Educations[i].FormTrainings[k].Value" selected>@Model.Educations[i].FormTrainings[k].Text</option>
+                }
+                else
+                {
+                    <option value="@Model.Educations[i].FormTrainings[k].Value">@Model.Educations[i].FormTrainings[k].Text</option>
+                }
+
+
+            }
+        </select>
+
+        <hr />
+
+        <h4><b> Период навчання </b></h4>
+        <p>
+            <div style="float: left; width: 49%">
+                <h4><b> Дата вступу </b></h4>
+
+                <input type="date" name="Educations[i].DateWorkFrom" value="@Model.Educations[i].DateWorkFrom.ToString("yyyy-MM-dd")" />
+            </div>
+            <div style="float: left; width: 49%">
+                <h4><b> Дата закінчення </b></h4>
+                <input type="date" name="Educations[i].DateWorkFrom" value="@Model.Educations[i].DateWorkTo.ToString("yyyy-MM-dd")" />
+            </div>
+        </p>
+
+    }
+    <hr />
+    <a href="@Url.Action( "AddEducation", "EditResume", new { resumeId = Model.Id })">
+        <b>Додати</b>
+    </a>
+</div>
+<Hr>
+<div id="container">
+    <h3><b> Знание іноземних мов </b></h3>
+
+    @for (var i = 0; i < Model.ForeignLanguages.Count; i++)
+    {
+
+        <input type="text" name="ForeignLanguages[i].Name" value="@Model.ForeignLanguages[i].Name" />
+        <input type="hidden" name="ForeignLanguages[i].Id" value="@Model.ForeignLanguages[i].Id" />
+
+
+        <select name="ForeignLanguages[i].LevelLanguageId">
+            @for (var k = 0; k < Model.ForeignLanguages[i].LevelsLanguage.Count; k++)
+            {
+                string guidValue = Model.ForeignLanguages[i].LevelsLanguage[k].Value;
+                string selectedValue = Model.ForeignLanguages[i].LevelLanguageId.ToString().ToUpper();
+                if (guidValue == selectedValue)
+                {
+                    <option value="@Model.ForeignLanguages[i].LevelsLanguage[k].Value" selected>@Model.ForeignLanguages[i].LevelsLanguage[k].Text</option>
+                }
+                else
+                {
+                    <option value="@Model.ForeignLanguages[i].LevelsLanguage[k].Value">@Model.ForeignLanguages[i].LevelsLanguage[k].Text</option>
+                }
+
+
+            }
+        </select>
+
+
+
+    }
+    <hr />
+    <a href="@Url.Action( "AddForeignLanguage", "EditResume", new { resumeId = Model.Id })">
+        <b>Додати</b>
+    </a>
+</div>
+
+
+
+
+<hr />
+<div id="container">
+    <h3><b> Тренінги и курси </b></h3>
+
+    @for (var i = 0; i < Model.TrainingAndCourses.Count; i++)
+    {
+
+        <input type="text" name="TrainingAndCourses[i].Name" placeholder="Name" value="@Model.TrainingAndCourses[i].Name" />
+        <input type="hidden" name="TrainingAndCourses[i].Id" value="@Model.ForeignLanguages[i].Id" />
+
+        <h4><b> Період навчання </b></h4>
+
+        <input type="date" name="TrainingAndCourses[i].DateFrom" value="@Model.TrainingAndCourses[i].DateFrom.ToString("yyyy-MM-dd")" />
+
+
+        <h4><b> до </b></h4>
+
+        <input type="date" name="TrainingAndCourses[i].DateTo" value="@Model.TrainingAndCourses[i].DateTo.ToString("yyyy-MM-dd")" />
+
+        <input type="text" name="TrainingAndCourses[i].NumberSertifikation" placeholder="Name" value="@Model.TrainingAndCourses[i].NumberSertifikation" />
+
+
+    }
+    <hr />
+
+    <a href="@Url.Action( "AddTrainCourse", "EditResume", new { resumeId = Model.Id })">
+        <b>Додати</b>
+    </a>
+</div>
+<hr />
+
+
+
+<div id="container">
+
+    <h3><b> Володіння програмним забезпеченням и технологиями </b></h3>
+
+    @for (var i = 0; i < Model.Softwares.Count; i++)
+    {
+
+        <input type="text" name="Softwares[i].Name" value="@Model.Softwares[i].Name" />
+        <input type="hidden" name="Softwares[i].Id" value="@Model.Softwares[i].Id" />
+
+
+
+        <select name="Softwares[i].LevelSoftWareId">
+            @for (var k = 0; k < Model.Softwares[i].LevelsSoftWare.Count; k++)
+            {
+                string guidValue = Model.Softwares[i].LevelsSoftWare[k].Value;
+                string selectedValue = Model.Softwares[i].LevelSoftWareId.ToString().ToUpper();
+                if (guidValue == selectedValue)
+                {
+                    <option value="@Model.Softwares[i].LevelsSoftWare[k].Value" selected>@Model.Softwares[i].LevelsSoftWare[k].Text</option>
+                }
+                else
+                {
+                    <option value="@Model.Softwares[i].LevelsSoftWare[k].Value">@Model.Softwares[i].LevelsSoftWare[k].Text</option>
+                }
+
+
+            }
+        </select>
+
+
+
+    }
+
+
+
+    <a href="@Url.Action( "AddSoftWares", "EditResume", new { resumeId = Model.Id })">
+        <b>Додати</b>
+    </a>
+
+</div>
+
+
+<hr>
+<div id="container">
+    <h3><b> Нагороди </b></h3>
+
+    @for (var i = 0; i < Model.Awards.Count; i++)
+    {
+
+        <input type="text" name="Awards[i].Name" placeholder="Name" value="@Model.Awards[i].Name" />
+        <input type="hidden" name="Awards[i].Id" value="@Model.Awards[i].Id" />
+
+        <h4><b> Рік одержання </b></h4>
+
+        <input type="date" name="Awards[i].Date" value="@Model.Awards[i].Date.ToString("yyyy-MM-dd")" />
+
+
+
+
+    }
+    <a href="@Url.Action( "AddAward", "EditResume", new { resumeId = Model.Id })">
+        <b>Додати</b>
+    </a>
+
+</div>
+
+<hr>
+<div id="container">
+    <h3><b> Додаткова інформація </b></h3>
+    @{
+        if (Model.AditinalInfos == "")
+        {
+            <a href="@Url.Action( "AddAditionInformation", "EditResume", new { resumeId = Model.Id })">
+                <b>Додати</b>
+            </a>
+        }
+        else
+        {
+            <input name="AditinalInfos" value="@Model.AditinalInfos" height="70" />
+            <hr />
+            <a href="@Url.Action( "EditAditionInformation", "EditResume", new { resumeId = Model.Id })">
+                <b>Змінити</b>
+            </a>
+        }
+    }
+
+
+</div>
+<hr />
+
+<style>
+    #Activ {
+        color: blue;
+    }
+
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-left: 150px;
+        font-size: 20px;
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>

@@ -1,0 +1,44 @@
+﻿@model Search_Work.Models.ViewModel.Home.Company.PageCompaniesByFeldViewModel
+
+@{
+      Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h3><b>Компанії за сферами діяльності</b></h3>
+</div>
+<hr />
+
+<div class="row" id="container">
+    <div class="row" id="container" style="float: left; width: 49%; margin-left: 20px;">
+        @for (var i = 0; i < Model.CompaniesByFeld.Count() / 2; i++)
+        {
+        <a href="@Url.Action("CompanyCatalogByActivityField", "CompanyHome",
+                            new { fieldActivityId = Model.CompaniesByFeld[i].FieldActivityId})">
+            <p>@Model.CompaniesByFeld[i].FieldActivityName</p>
+        </a>
+        }
+    </div>
+    <div class="row" id="container" style="float: left; width: 49%">
+        @for (var i = Model.CompaniesByFeld.Count() / 2; i < Model.CompaniesByFeld.Count(); i++)
+        {
+        <a href="@Url.Action("CompanyCatalogByActivityField", "CompanyHome",
+                            new { fieldActivityId = Model.CompaniesByFeld[i].FieldActivityId})">
+            <p>@Model.CompaniesByFeld[i].FieldActivityName</p>
+        </a>
+        }
+
+    </div>
+</div>
+
+
+<style>
+    #container {
+        background-color: dff0d8e6;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
+

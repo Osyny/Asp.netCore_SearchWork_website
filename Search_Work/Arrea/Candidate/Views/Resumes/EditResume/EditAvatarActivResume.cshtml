@@ -1,0 +1,117 @@
+﻿@model Search_Work.Arrea.Candidate.Models.Resume.EditAvatarActivResViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+
+<div class="row" id="container">
+  
+    <hr />
+    <div class="c" style="float: left; width: 49%">
+        <p>@Model.ResumeName </p>
+       
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.Foto == null)
+            {
+                <img id="logo" src="~/images/LogoCompany.png" />
+            }
+            else
+            {
+                <img id="logo" src="@Model.Foto " />
+
+            }
+
+        </div>
+    </div>
+</div>
+<div class="row" id="container">
+    <form method="post" asp-action="EditAvatarActivResume" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="c" style="float: left; width: 49%">
+
+            <br>
+            <p> Цiль подачi резюме ( На яку спеціальність )</p>
+            <input type="text" name="ResumeName" value="@Model.ResumeName">
+
+        </div>
+        <div class="c" style="float: left; width: 49%">
+            <!-- Image -->
+            <lable class="row">
+                <div class="col-md-6">
+                    <h4>Avatar:</h4>
+                    <div class="col-md-10">
+                        <input type="file" name="Image" class="form-control" />
+                    </div>
+                </div>
+            </lable>
+        </div>
+
+
+        <br />
+
+
+
+        @{
+            var chechedAnonymousResume = "";
+
+            if (Model.IsAnonymousResume == true)
+            {
+                chechedAnonymousResume = "checked";
+            }
+            var chechedHideContact = "";
+        }
+        <div>
+
+            <label for="IsAnonymousResumeId"> Закрити особисті дані (анонимне резюме) </label>
+            <br>
+            <input type="checkbox" name="IsAnonymousResume" value="true" @chechedAnonymousResume />
+        </div>
+
+        <hr />
+        @{
+            var activeResume = "";
+
+            if (Model.IsActiveResume == true)
+            {
+                activeResume = "checked";
+            }
+          
+        }
+
+        @if (Model.IsActiveResume == true || Model.IsActiveResume == null)
+        {
+            <h4 style="color : blue;"><b>Резюме активно</b></h4>
+        }
+        else
+        {
+            <h4 style="color : #DF0101;"><b>Резюме неактивно</b></h4>
+
+        }
+        <input type="checkbox" name="IsActiveResume" value="true" @activeResume/>
+        <hr />
+
+        <hr />
+        <button type="submit">Зберегти</button>
+        <hr />
+        <a href="@Url.Action( @*"EditResume"*@ "Edit", "Resume", new { resumeId = Model.Id })">
+            <b>Закрити</b>
+        </a>
+
+    </form>
+</div>
+
+<style>
+    #logo{
+        width: 30%;
+    }
+</style>

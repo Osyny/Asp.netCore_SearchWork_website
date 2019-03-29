@@ -1,0 +1,82 @@
+﻿@model Search_Work.Models.ArreaDatabase.Candidate
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="container">
+    <h3 id="txt" >Профіль : @Html.DisplayFor(model => model.Name) - (@Html.DisplayFor(model => model.Age ) років)</h3>
+</div>
+
+
+<hr />
+<div id="container">
+
+
+    <div id="avatar">
+        @if (Model.Avatar == null)
+        {
+        <img id="logo" src="~/images/LogoCompany.png" title="@Model.Name" />
+        }
+        else
+        {
+        <img id="logo" src="@Model.Avatar" title="@Model.Name" />
+
+        }
+        @*<img src="@Model.Avatar" />*@
+    </div>
+    <div id="avatar">
+
+        <h4><b>Прізвище : </b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Surname)</h4>
+        <h4><b> Ім'я :</b> &nbsp;&nbsp; @Html.DisplayFor(model => model.Name)</h4>
+        <h4><b> Побатькові :</b>&nbsp;&nbsp;@Html.DisplayFor(model => model.LastName)</h4>
+        <h4><b>Email :</b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Email)</h4>
+        <h4><b> Tel. :</b>&nbsp;&nbsp;@Html.DisplayFor(model => model.PhoneNumber)</h4>
+        <h4><b>Facebook : </b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Facebook)</h4>
+        <h4><b>Місто : </b>&nbsp;&nbsp; @Html.DisplayFor(model => model.City.Name)</h4>
+    </div>
+    <hr />
+</div>
+<a id="edit" href="@Url.Action("Edit", "Candidates", new { id = @Model.Id })">Редагувати</a>
+
+@*<a id="edit"  asp-action="Index">Повернутись до списку</a>*@
+
+
+<style>
+    #avatar {
+        margin: 0;
+        padding: 0;
+        display: none
+    }
+
+    #container, #edit {
+        background-color: aliceblue;
+        border: 1px solid silver;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 25px;
+    }
+
+    #avatar {
+        display: inline-block;
+    }
+
+       #avatar li {
+                font-size: 100%;
+            }
+    img {
+        width: 50%;
+        padding: 20px;
+        margin: 50px;
+        text-align: center;
+    }
+
+    #txt {
+        text-align: center;
+        color: darkblue;
+        font-family: 'Times New Roman', Times, serif;
+    }
+</style>
+
+

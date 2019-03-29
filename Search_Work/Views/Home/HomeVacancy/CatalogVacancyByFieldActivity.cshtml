@@ -1,0 +1,110 @@
+﻿@model Search_Work.Models.ViewModel.Home.Company.PageCatalogVacancyByFieldViewModel
+@using Search_Work.Models.Helper;
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h2><b>@Model.FialdActivityName </b></h2>
+</div>
+<hr />
+
+<div class="row" id="container">
+    <form asp-action="VacancyCatalogByActivityField" asp-controller="Vacancy" id="filterDateForm">
+        <input type="hidden" name="fieldActivityId" value="@Model.FieldId" />
+        <input type="hidden" name="currentPage" value="@Model.CurrentPage" />
+        <span>@Model.CountVacancyByFieldActivity - </span>
+        <select id="filterByDateSelect" name="dateFilter" placeholder="за місяць">
+
+            @{
+                if (Model.SelectedFilter == FieldsMonth.MonthId)
+                {
+                    <option value="@FieldsMonth.MonthId" selected>@FieldsMonth.Month.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.MonthId">@FieldsMonth.Month.NameFild</option>
+                }
+
+                if (Model.SelectedFilter == FieldsMonth.WeеkId)
+                {
+                    <option value="@FieldsMonth.WeеkId" selected>@FieldsMonth.Weеk.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.WeеkId">@FieldsMonth.Weеk.NameFild</option>
+                }
+
+                if (Model.SelectedFilter == FieldsMonth.DayId)
+                {
+                    <option value="@FieldsMonth.DayId" selected>@FieldsMonth.Day.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.DayId">@FieldsMonth.Day.NameFild</option>
+                }
+            }
+
+
+
+        </select>
+        <hr />
+    </form>
+</div>
+
+
+
+<script>
+    var filterDateForm = document.querySelector('#filterDateForm');
+    var select = document.querySelector('#filterByDateSelect');
+    select.addEventListener('change', function () {
+        filterDateForm.submit();
+    });
+</script>
+
+
+
+@foreach (var vacancy in Model.VacanciesByField)
+{
+
+    <div class="row" id="container">
+        <span style="float: left; width: 49%">
+            <a href="@Url.Action("AboutVacancy", "Vacancy", new { vacancyId = vacancy.Id})">
+                <span>@vacancy.VacancyName </span>
+            </a>
+            <span> - @vacancy.Salary  грн/міс</span>
+            <span>(@vacancy.DateCriate.ToString("dd/MM/yyyy"))</span>
+        </span>
+        <span style="float: left; width: 49%">
+            @if (vacancy.CompanyLogoUrl == null)
+            {
+                <img id="logo" src="~/images/LogoCompany.png" title="@vacancy.CompanyName" />
+            }
+            else
+            {
+                <img id="logo" src="@vacancy.CompanyLogoUrl" title="@vacancy.CompanyName" />
+
+            }
+
+        </span>
+        <div>
+            <p>@vacancy.CompanyName, @vacancy.CityName</p>
+            <p>@vacancy.Description</p>
+
+            <a href="@vacancy.Link">подробнее</a>
+        </div>
+    </div>
+}
+
+<hr />
+<div class="row"  id="container">
+    @Html.Partial("~/Views/Shared/Elements/CataloguePagination/_cataloguePagination.cshtml", @Model.Pagination)
+</div>
+
+<style>
+    #logo {
+        width: 70px;
+    }
+</style>

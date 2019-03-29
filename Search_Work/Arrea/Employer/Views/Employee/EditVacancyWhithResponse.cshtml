@@ -1,0 +1,218 @@
+﻿@model Search_Work.Arrea.Employer.Models.PageEditVacancyWhithResponseViewModel
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    @*<div class="cont">
+            <a id="zcilkaTopMenuNavigation" href="@Url.Action("ProfileCompany", "")"><b> Вакансії</b></a>
+            <a id="zcilkaTopMenuNavigation" href="@Url.Action("EmployeeCompany", "Employee", new { companyId = Model.CompanyId })"><b> Працівники </b></a>
+
+        </div>*@
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+    <div style="float: left; width: 49%">
+        <h3><b>Вакансія </b></h3>
+        <h3>Створена: @Model.DateCreate</h3>
+        <hr />
+    </div>
+    <div style="float: left; width: 49%">
+        @if (Model.DatePublication == DateTime.MinValue)
+        {
+        <h4>Не опублікована</h4>
+
+        }
+        else
+        {
+        <h4>Дата публікації: <b>@Model.DatePublication.ToString("dd/MM/yyyy")</b></h4>
+        }
+        <hr />
+        <a id="container" href="@Url.Action("EditDatePublicationSubmit", "Vacancy" , new {vacancyId = Model.Id })">Оновити дату публікації</a>
+        @*<form asp-action="EditDatePublicationSubmit" asp-controller="Vacancy">
+
+                <input type="hidden" name="VacancyId" value="@Model.Id" />
+                <button type="submit" value="Submit">Оновити дату публікації</button>
+
+            </form>*@
+
+
+    </div>
+</div>
+<hr />
+<div class="row" id="container">
+    <form method="post" asp-action="EditVacancy" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <input type="hidden" name="EmployerId" value="@Model.EmployerId" />
+
+        <div id="container">
+            <h4>Статус:</h4> <h3><b style="color:DarkRed"> @Model.Status </b></h3>
+            <hr />
+            <h4>Змінити статус</h4>
+            <input type="checkbox" name="IsPublication" value="true" />
+
+        </div>
+
+        <hr />
+        <h4>Назва</h4>
+        <input type="text" name="NameVacancy" value="@Model.NameVacancy" />
+
+        <h4><b> Місто : </b></h4>
+        <div>
+
+            <select name="CityId">
+                @for (var i = 0; i < Model.Cities.Count; i++)
+                {
+                    string guidValue = Model.Cities[i].Value;
+                    string selectedValue = Model.CityId.ToString().ToUpper();
+
+                    if (guidValue == selectedValue)
+                    {
+                    <option value="@Model.Cities[i].Value" selected>@Model.Cities[i].Text</option>
+
+                    }
+                    else
+                    {
+                    <option value="@Model.Cities[i].Value">@Model.Cities[i].Text</option>
+                    }
+
+                }
+
+            </select>
+        </div>
+
+        <hr />
+        <h4><b> Категорія : </b></h4>
+        <div>
+
+            <select name="FieldId">
+                @for (var i = 0; i < Model.FieldsActivity.Count; i++)
+                {
+
+
+                    string guidValue = Model.FieldsActivity[i].Value;
+                    string selectedValue = Model.FieldId.ToString().ToUpper();
+                    if (guidValue == selectedValue)
+                    {
+                    <option value="@Model.FieldsActivity[i].Value" selected>@Model.FieldsActivity[i].Text</option>
+                    }
+                    else
+                    {
+                    <option value="@Model.FieldsActivity[i].Value">@Model.FieldsActivity[i].Text</option>
+                    }
+
+
+                }
+
+            </select>
+        </div>
+
+
+
+        <hr />
+
+        <h4><b> Зайнятість</b> </h4>
+        <div>
+
+            <select name="EmploymentId">
+                @for (var i = 0; i < Model.Employments.Count; i++)
+                {
+                    string guidValue = Model.Employments[i].Value;
+                    string selectedValue = Model.EmploymentId.ToString().ToUpper();
+                    if (guidValue == selectedValue)
+                    {
+                    <option value="@Model.Employments[i].Value" selected>@Model.Employments[i].Text</option>
+                    }
+                    else
+                    {
+                    <option value="@Model.Employments[i].Value">@Model.Employments[i].Text</option>
+                    }
+
+                }
+
+            </select>
+        </div>
+
+        <h4> Досвід </h4>
+        <select name="ExperienceOfWorkId">
+            @for (var i = 0; i < Model.ExperiencesOfWork.Count; i++)
+            {
+                string guidValue = Model.ExperiencesOfWork[i].Value;
+                string selectedValue = Model.ExperienceOfWorkId.ToString().ToUpper();
+                if (guidValue == selectedValue)
+                {
+                <option value="@Model.ExperiencesOfWork[i].Value" selected>@Model.ExperiencesOfWork[i].Text</option>
+                }
+                else
+                {
+                <option value="@Model.ExperiencesOfWork[i].Value">@Model.ExperiencesOfWork[i].Text</option>
+                }
+            }
+        </select>
+        <hr />
+
+
+        <h4> <b> Опис : </b></h4>
+        <input type="text" name="Description" placeholder="Опис" value="@Model.Description" />
+        <h4> <b> Вимога : </b></h4>
+        <input type="text" name="Requirement" placeholder="Вимога" value="@Model.Requirement" />
+
+        <h4><b> Обов'язки : </b></h4>
+        <input type="text" name="Responsibilities" placeholder="Вимоги" value="@Model.Responsibilities" />
+        <h4><b> Володіння іноземними мовами : </b></h4>
+        <input type="text" name="ForeignLanguages" placeholder="Вимоги" value="@Model.ForeignLanguages" />
+        <h4><b> Додаткові вимоги :  </b></h4>
+        <input type="text" name="AdditionalRequirements" placeholder="Вимоги" value="@Model.AdditionalRequirements" />
+
+        <hr />
+
+        <div id="container">
+            <label>
+                <span> Контактна особа : </span>
+                <input type="text" name="ContactPerson" placeholder="" value="@Model.ContactPerson" />
+            </label>
+            <div>
+                <h4> Телефон : </h4>
+                <input type="text" name="PhoneNumber" placeholder="" value="@Model.PhoneNumber" />
+            </div>
+            <div>
+                <h4> E-mail : </h4>
+                <input type="text" name="Email" placeholder="" value="@Model.Email" />
+            </div>
+
+            @{
+              var chechedAtrebuteCompany = "";
+
+              if (Model.UseCompanyContact == true)
+              {
+                  chechedAtrebuteCompany = "checked";
+              }
+              var chechedAtrebutePers = "";
+
+              if (Model.UsePersonalContact == true)
+              {
+                  chechedAtrebutePers = "checked";
+              }
+            }
+            <div>
+                <input type="checkbox" id="UseCompanyId" name="UseCompanyContact" value="true" @chechedAtrebuteCompany>
+                <label for="UseCompanyId"> Використати контакти вказані для компанії </label>
+                <input type="checkbox" id="UsePersonalId" name="UsePersonalContact" value="true" @chechedAtrebutePers>
+                <label for="UsePersonalId"> Використовувати контакти особистого профілю </label>
+            </div>
+
+        </div>
+
+        <button id="BtnSave"> Зберегти </button>
+
+    </form>
+</div>

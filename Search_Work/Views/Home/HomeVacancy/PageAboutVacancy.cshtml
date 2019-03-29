@@ -1,0 +1,140 @@
+﻿@model Search_Work.Models.ViewModel.Home.Company.PageAboutVacncyViewModel
+
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h3>Вакансия створена : @Model.DateCriate.ToString("d")</h3>
+    <h4><b>Сфера діяльності - @Model.FieldActivityName</b></h4>
+
+</div>
+<div class="row" id="container">
+    <div class="c" style="float: left; width: 49%">
+        <h4><b>@Model.VacancyName - @Model.Wage грн/міс</b></h4>
+        
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.CompanyLogoUrl == null)
+            {
+            <img id="logo" src="~/images/LogoCompany.png" title="@Model.CompanyName" />
+            }
+            else
+            {
+            <img id="logo" src="@Model.CompanyLogoUrl" title="@Model.CompanyName" />
+
+            }
+
+        </div>
+    </div>
+</div>
+<div class="row" id="container">
+
+    <p>
+        Компанія : <b>@Model.CompanyName</b>
+        <a href="@Model.LinkAllVacancyThisCompany">( подивитись всі вакансії компанії )</a>
+    </p>
+    <p>Місто : @Model.CityName  </p>
+    <p>Вид зайнятости : @Model.TypeEmployment   </p>
+    <p>Вимоги : досвід роботи @Model.ExperienceOfWork   </p>
+
+    <hr />
+    <h4>Телефон : @Model.PhoneNumberPerson </h4>
+    <h4>Email : @Model.EmailPerson </h4>
+    <h4>Сайт : @Model.Site </h4>
+    <h4>Linkedin : @Model.Linkedin </h4>
+    <h4>Fasebook : @Model.Fasebook </h4>
+</div>
+<hr />
+<div class="row" id="container">
+
+    @if (Model.Candidate != null)
+    {
+    <form method="post" asp-area="" asp-controller="Vacancy" asp-action="SaveVacancySubmit">
+        <input type="hidden" name="vacancyId" value="@Model.VacancyId" />
+        <button type="submit"> Зберегти в базу </button>
+    </form>
+
+    <hr />
+    <div class="row" id="container">
+        <a href="@Url.Action( "PageResumesResponseToVacancy", "Vacancy", new { vacancyId = Model.VacancyId })">
+            <b>Відповісти на вакансію</b>
+        </a>
+    </div>
+
+        @*<form method="post" asp-area="" asp-controller="Vacancy" asp-action="ResponseToVacancy">
+                <input type="hidden" name="vacancyId" value="@Model.VacancyId" />
+                <button type="submit"> Відповісти на вакансію </button>
+            </form>*@
+    }
+</div>
+
+<hr />
+<div class="row" id="container">
+    <h3><b>Oпис компанії</b></h3>
+    <hr />
+    <h4>@Model.Description </h4>
+    <hr />
+    <h3><b>Вимога</b></h3>
+    <hr />
+    <h4>@Model.Requirement  </h4>
+    <hr />
+    <h3><b>Обов'язки </b></h3>
+    <hr />
+    <h4>@Model.Responsibilities  </h4>
+    <hr />
+    <h3><b>Володіння іноземними мовами </b></h3>
+    <hr />
+    <h4>@Model.ForeignLanguages  </h4>
+    <hr />
+    <h3><b>Додаткові вимоги </b></h3>
+    <hr />
+    <h4>@Model.AdditionalRequirements  </h4>
+    <hr />
+
+
+</div>
+<hr />
+<div>
+    <div class="row" id="container">
+
+        <h3>Подібні вакансії :</h3>
+        <ul>
+            @foreach (var resume in Model.SimilarVacancies)
+            {
+
+
+            <li>
+                <span>@resume.VacancyName - </span>
+
+                <span>  @resume.Salary грн/міс, </span>
+                <span> @resume.CityName</span>
+                <span> @resume.TypeEmployment?.Name</span>
+
+                <a href="@resume.Link"> Детальнише </a>
+            </li>
+
+            }
+        </ul>
+    </div>
+</div>
+<hr />
+
+
+
+<style>
+    #container {
+        background-color: dff0d8e6;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+    }
+
+    img {
+        width: 50px;
+    }
+</style>
+

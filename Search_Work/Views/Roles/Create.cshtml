@@ -1,0 +1,23 @@
+﻿@model string
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<hr/>
+<form asp-action="Create" method="post">
+    <div class="form-group" id="container">
+        <label for="name">Нова роль</label>
+        <input name="name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавити</button>
+</form>
+
+<style>
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+    }
+
+    .cont {
+    }
+</style>

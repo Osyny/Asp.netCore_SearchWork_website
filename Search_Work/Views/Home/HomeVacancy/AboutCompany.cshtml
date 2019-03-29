@@ -1,0 +1,137 @@
+﻿@model Search_Work.Models.ViewModel.Home.Company.CompanyPageViewModel
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row" id="container">
+    <h3><b>Компанія</b></h3>
+</div>
+<hr />
+<div class="row" id="container">
+    <div class="c" style="float: left; width: 49%">
+        <h3><b>@Model.Name</b></h3>
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.CompanyLogoUrl == null)
+            {
+            <img id="logo" src="~/images/LogoCompany.png" title="@Model.Name" />
+            }
+            else
+            {
+            <img id="logo" src="@Model.CompanyLogoUrl" title="@Model.Name" />
+
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="row" id="container">
+    <p>
+        <b>Веб-сайт: </b>
+    </p>
+    <hr />
+    <a href="@Model.Site">@Model.Site</a>
+
+    <p>
+        <b>Oпис: </b>
+    </p>
+    <hr />
+    <p>@Model.Description</p></p>
+
+
+</div>
+<hr />
+<div class="row" id="container">
+    <form asp-action="Index" asp-controller="Company" id="filterCityForm">
+        <input type="hidden" name="companyId" value="@Model.CompanyId" />
+        <hr />
+        <h3><b>Відкриті вакансії компанії</b></h3>
+
+        <select name="cityId" placeholder="Всі міста" id="filterByCitySelect">
+
+            @{
+              if (Model.SelectedFilterCity == Guid.Parse("876942cc-2bc5-4c16-911c-2287808381de"))
+              {
+                <option value="876942cc-2bc5-4c16-911c-2287808381de" selected>
+                    Все города
+                </option>
+              }
+              else
+              {
+                <option value="876942cc-2bc5-4c16-911c-2287808381de">
+                    Все города
+                </option>
+              }
+            }
+
+
+            @foreach (var city in Model.Cities)
+            {
+
+                if (Model.SelectedFilterCity == city.Id)
+                {
+                <option value="@city.Id" selected>
+                    @city.Name
+                </option>
+                }
+                else
+                {
+                <option value="@city.Id">
+                    @city.Name
+                </option>
+                }
+
+
+            }
+        </select>
+    </form>
+
+    <script>
+        var filterDateForm = document.querySelector('#filterCityForm');
+        var select = document.querySelector('#filterByCitySelect');
+        select.addEventListener('change', function (evt) {
+            evt.preventDefault();
+            //filterDateForm.submit();
+            console.log(evt.target);
+            var searchParams = new URLSearchParams(location.search);
+            searchParams.delete("cityId");
+            searchParams.append("cityId", select.value);
+            location.search = searchParams.toString();
+            //location.assign();
+        });
+
+    </script>
+
+    <ul class="similarRecordList">
+        @foreach (var vacancy in Model.CompanyOpenVacancies)
+        {
+        <li class="similarRecordListItem">
+            <span class="similarRecordName">@vacancy.VacancyName, @vacancy.Salary грн/мес</span>
+            <span class="similarRecordLocation">@vacancy.CompanyName @vacancy.CityName</span>
+            <a class="detailsLink" href="@vacancy.Link">Подробнее</a>
+        </li>
+        }
+    </ul>
+
+
+</div>
+
+
+
+
+
+
+<style>
+    img {
+        width: 15%;
+    }
+</style>
+

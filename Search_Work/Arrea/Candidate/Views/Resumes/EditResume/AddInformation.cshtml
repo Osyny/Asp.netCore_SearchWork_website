@@ -1,0 +1,38 @@
+﻿@model Search_Work.Arrea.Candidate.Models.Resume.AddInformationViewModel
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+
+<div class="row" id="container">
+
+    <div style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.Resume.Name</b></h3>
+
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>Додаткова інформація</b></h3>
+
+    </div>
+
+</div>
+
+<hr />
+<div id="container">
+    <form method="post" asp-action="AddAditionInformation" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" name="ResumeId" value="@Model.Resume.Id" />
+        <hr />
+
+        <p>
+
+            <input type="text" name="Text" placeholder="Text" value="" />
+        </p>
+
+        <hr />
+        <button type="submit">Зберегти</button>
+    </form>
+</div>

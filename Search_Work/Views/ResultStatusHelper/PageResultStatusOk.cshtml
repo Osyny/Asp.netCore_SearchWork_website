@@ -1,0 +1,13 @@
+﻿
+@model Search_Work.Models.ViewModel.Candidate.Resumes.PageResumeCandidateToResponseViewModel
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h4><b>Ввідгук на вакансію <span style="color: 	#DC143C">@Model.Vacancy.Name</span> </b> відправлено</h4>
+
+    <button type="submit" onclick="location.href='@Url.Action("AboutVacancy", "Vacancy", new { vacancyId = Model.Vacancy.Id })'">OK</button>
+</div>
+

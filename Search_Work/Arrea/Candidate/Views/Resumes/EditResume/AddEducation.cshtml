@@ -1,0 +1,66 @@
+﻿@model Search_Work.Arrea.Candidate.Models.Resume.AddResumeEducationViewModel
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="container">
+
+    <div style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.Resume.Name</b></h3>
+
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>Освіта</b></h3>
+
+    </div>
+
+</div>
+
+<hr />
+<div id="container">
+    <form method="post" asp-action="AddImplementedProjects" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" name="ResumeId" value="@Model.Resume.Id" />
+        <hr />
+
+       
+        @Html.DropDownList("LevelEducationId", Model.LevelEducations)
+        <p>
+            <h4><b> Місто ВУЗ-а </b></h4>
+            <input type="text" name="City" placeholder="Назва вузу" value="" />
+        </p>
+        <p>
+            <h4><b> Назва ВУЗ-а </b></h4>
+            <input type="text" name="NameInstitution" placeholder="Назва інституту" value="" />
+        </p>
+        <p>
+            <h4><b> Спеціалізація</b></h4>
+            <input type="text" name="Specialization" placeholder="Спеціалізація" value="" />
+        </p>
+        <p>
+
+            <h4><b> Форма навчання </b></h4>
+        @Html.DropDownList("FormTrainingId", Model.FormTrainings)
+            
+
+    
+        </p>
+        <p>
+            <div style="float: left; width: 49%">
+                <h4><b> Дата вступу </b></h4>
+
+                <input type="date" name="DateWorkFrom" value="" />
+            </div>
+            <div style="float: left; width: 49%">
+                <h4><b> Дата закінчення </b></h4>
+                <input type="date" name="DateWorkTo" value="" />
+            </div>
+        </p>
+
+        <hr />
+        <button type="submit">Зберегти</button>
+    </form>
+</div>

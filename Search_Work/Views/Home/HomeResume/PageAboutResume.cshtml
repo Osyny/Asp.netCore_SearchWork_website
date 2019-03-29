@@ -1,0 +1,211 @@
+﻿@model Search_Work.Models.ViewModel.Home.Resumes.PageAboutResumeViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+
+    <div class="c" style="float: left; width: 49%">
+        @if (string.IsNullOrEmpty(Model.NameCanditate))
+        {
+            <h3><b>Anonim</b></h3>
+        }
+        else
+        {
+            <h3><b>@Model.NameCanditate</b></h3>
+        }
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+        <h3>Резюме від - @Model.DataCriate.ToString("dd/MM/yyyy")</h3>
+
+    </div>
+</div>
+<hr />
+<div class="row" id="container">
+
+    <div class="c" style="float: left; width: 49%">
+        <h4><b>@Model.ResumeName - @Model.Wage грн/міс</b></h4>
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.Foto == null)
+            {
+                <img id="logo" src="~/images/person.png" title="@Model.NameCanditate" />
+            }
+            else
+            {
+                <img id="logo" src="@Model.Foto" title="@Model.NameCanditate" />
+
+            }
+
+        </div>
+    </div>
+
+</div>
+<hr />
+<div class="row" id="container">
+    <hr />
+
+
+    <h4>Дата народження : @Model.Birthday.ToString("dd/MM/yyyy") (@Model.Age р.)</h4>
+    <h4>Місто : @Model.CityName</h4>
+
+    <p>Сімейний стан : @Model.FamilyStatus</p>
+    <p>Діти : @Model.Children</p>
+    <hr />
+    <h4><b>Контактні дані</b></h4>
+    <hr />
+    @if (Model.IsAnonimus == false)
+    {
+        <h4 style="color : blue;"><b>Резюме анонімне</b></h4>
+    }
+    else
+    {
+        <h4>Телефон : @Model.PhoneNumber</h4>
+        <h4>Email : @Model.Email</h4>
+        <h4>Скайп : @Model.Skype</h4>
+        <h4>Linkedin : @Model.Linkedin</h4>
+        <h4>Fasebook : @Model.Fasebook</h4>
+
+    }
+
+    <hr />
+
+    @if (Model.EmpViewId != null)
+    {
+        <form method="post" asp-area="" asp-controller="ResumeHome" asp-action="SaveResumeSubmit">
+            <input type="hidden" name="resumeId" value="@Model.ResumeId" />
+            <button type="submit"> Зберегти в базу </button>
+        </form>
+        <hr />
+    }
+    @if (Model.VacancyId != null)
+    {
+        <form method="post" asp-area="" asp-controller="ResumeHome" asp-action="ResponseToResumeSubmit">
+            <input type="hidden" name="resumeId" value="@Model.ResumeId" />Va
+            <input type="hidden" name="VacancyId" value="@Model.VacancyId" />
+            <button type="submit"> Відповісти на резюме </button>
+        </form>
+    }
+</div>
+<hr />
+<div class="row" id="container">
+    <h3><b> Освіта :</b></h3>
+    <div>
+        @foreach (var e in Model.Educations)
+        {
+            <h5> @e.LevelEducation.Name </h5>
+            <h5> @e.NameInstitution  - @e.Specialization</h5>
+            <h5> з @e.DateWorkFrom.ToString("MM/yyyy")  по @e.DateWorkTo.ToString("MM/yyyy") - ( @e.YearsWork  )</h5>
+            <hr />
+        }
+    </div>
+    <hr />
+    <h3><b> Досвід :</b> </h3>
+    <div>
+        @foreach (var e in Model.Experiences)
+        {
+
+            <h5> @e.NameCompany </h5>
+
+            <h4> з @e.DateWorkFrom.ToString("MM/yyyy")  по @e.DateWorkTo.ToString("MM/yyyy") -  @e.YearsWork </h4>
+            <h4><b> - @e.Position </b> </h4>
+            <h4><b> Обовязки : </b> </h4>
+            <h4> -  @e.Task </h4>
+            <h4><b>  Досягнення : </b> </h4>
+            <h4>  - @e.Progres  </h4>
+        }
+
+    </div>
+    <hr />
+    <div>
+        <h3><b> Реалізовані проекти : </b> </h3>
+        @foreach (var proj in Model.ImplementProjects)
+        {
+            <h5><b> @proj.NameProgect  </b></h5>
+            <h4> з @proj.DateWorkFrom.ToString("MM/yyyy")  по @proj.DateWorkTo.ToString("MM/yyyy") - @proj.YearsWork </h4>
+        }
+    </div>
+
+    <hr />
+    <div>
+        <h3><b> Курси : </b> </h3>
+        @foreach (var course in Model.TrainingAndCources)
+        {
+            <h4><b> @course.Name  </b></h4>
+            <h4> з @course.DateFrom.ToString("MM/yyyy")  по @course.DateTo.ToString("MM/yyyy") - ( @course.MounseWork місяців)</h4>
+        }
+    </div>
+    <hr />
+    <div>
+        <h3><b> Нагороди : </b> </h3>
+        @foreach (var award in Model.Awards)
+        {
+            <h4><b> @award.Name  </b></h4>
+            <h4>  @award.Date.ToString("yyyy")  рік  </h4>
+        }
+    </div>
+    <hr />
+    <div>
+        <h3><b> Публікації : </b> </h3>
+        @foreach (var p in Model.Publications)
+        {
+            <h4><b> @p.Name  </b></h4>
+            <h4>  @p.Date.Date.ToString("yyyy")  рік  </h4>
+
+        }
+    </div>
+    <hr />
+    <div>
+        <h3><b> Володіння програмним забезпеченням і технологіями : </b> </h3>
+        @foreach (var soft in Model.Softwares)
+        {
+            <h4><b> @soft.Name - @soft.LevelSoftWare </b></h4>
+
+        }
+    </div>
+    <hr />
+    <div>
+        <h3><b> Володіння іноземними мовами : </b> </h3>
+        @foreach (var len in Model.ForeignLanguages)
+        {
+            <h4><b> @len.Name - @len.LevelLanguage </b></h4>
+
+        }
+    </div>
+
+</div>
+<hr />
+<div class="row" id="container">
+
+    <h3>Подібні резюме :</h3>
+    <ul>
+        @foreach (var resume in Model.SimilarResume.Take(7))
+        {
+
+
+            <li>
+                <span>@resume.ResumeName - </span>
+
+                <span>  @resume.Salary грн/міс, </span>
+                <span>@resume.Age років, @resume.CityName</span>
+                <span>@resume.Education . @resume.TypeEmployment?.Name</span>
+
+                <a href="@resume.Link"> Детальнише </a>
+            </li>
+
+        }
+    </ul>
+</div>
+
+
+
+<style>
+    #logo {
+        width: 30%;
+    }
+</style>

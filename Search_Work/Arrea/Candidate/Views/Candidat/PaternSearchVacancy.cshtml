@@ -1,0 +1,131 @@
+﻿@model Search_Work.Arrea.Candidate.Models.PagePaternSearchVacancyViewModel
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("PaternSearchVacancy", "Vacancy")"><b> Шаблони пошуку</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("ResponsesToResume", "Vacancy")"><b> Відгуки</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("SavedVacancy", "Vacancy")"><b> Збережені вакансії</b></a>
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+
+        <h4><b>Шаблони пошуку вакансій </b></h4>
+
+   
+</div>
+<hr />
+<div class="row" id="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h5><b>Назва </b></h5>
+                </th>
+                <th>
+                    <h5><b>Категорія</b></h5>
+                </th>
+
+                <th>
+                    <h5><b>Місто</b></h5>
+                </th>
+                <th>
+                    <h5><b>Період</b></h5>
+                </th>
+                <th>
+                    -
+                </th>
+               
+                <th>
+                    -
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Paterns)
+            {
+            <tr>
+                <td>
+                  
+                    <h5> <b>@p.Request</b></h5>
+              
+                </td>
+                <td>
+                    <h5>@p.FieldActivityName</h5>
+                </td>
+                <td>
+                    <h5>@p.CityName</h5>
+                </td>
+                <td>
+                    <h5>@p.Period</h5>
+                </td>
+                <td>
+                    <form method="post" asp-area="" asp-controller="" asp-action="">
+                        <input type="hidden" name="" value="@p.Id" />
+                        <button type="submit"> Видалити </button>
+                    </form>
+                </td>
+               <td>
+                   <a href="@p.LinkToResume"> <h5> Подивитись (@p.Count) </h5> </a>
+               </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-left: 150px;
+        font-size: 20px;
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>

@@ -1,0 +1,251 @@
+﻿@model Search_Work.Arrea.Candidate.Models.CompanyEditViewModel
+
+@{
+  ViewData["Title"] = "Edit";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row" id="container">
+    <div class="c" style="float: left; width: 49%">
+        <h3><b>Компанія - @Model.CompanyName</b></h3>
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.CompanyLogo == null)
+            {
+            <img id="logo" src="~/images/LogoCompany.png" title="@Model.CompanyName" />
+            }
+            else
+            {
+            <img id="logo" src="@Model.CompanyLogo" title="@Model.CompanyName" />
+
+            }
+
+        </div>
+    </div>
+</div>
+
+@*<hr />
+<div id="container">
+    <span style="float: left; width: 49%">
+        <h3 id="txt">Компанія - @Model.CompanyName</h3>
+    </span>
+    <span style="float: left; width: 49%">
+        @if (Model.CompanyLogo == null)
+        {
+        <img id="logo" src="~/images/LogoCompany.png" title="@Model.CompanyName" />
+        }
+        else
+        {
+        <img id="logo" src="@Model.CompanyLogo" title="@Model.CompanyName" />
+
+        }
+    </span>
+
+   
+</div>*@
+<hr />
+<div id="container" class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="Employers" value="@Model.Employers" />
+            <input type="hidden" name="EmployeeId" value="@Model.EmployeeId" />
+            
+            <h4> Назва компанії: </h4>
+            <label>
+                <input type="text" name="CompanyName"  value="@Model.CompanyName" />
+            </label>
+           
+            <!-- Image -->
+            <div class="form-group">
+                <h4>Foto компанії:</h4>
+                <div class="col-md-10">
+                    <input type="file" name="Image" class="form-control" value="@Model.CompanyLogo"/>
+                </div>
+            </div>
+      
+            <div class="form-group">
+               <hr />
+                <br />
+                    <h4> Місто : </h4>
+                    <select asp-for="CityId" asp-items="@Model.Cities" value="@Model.CityName">
+                        @if (Model.CityName != null)
+                        {
+                        <option>@Model.CityName</option>
+                        }
+                        else
+                        {
+                        <option>Виберіть місто</option>
+                        }
+                        
+                    </select>
+              
+                </div>
+
+                <h4> Опис компанії: </h4>
+                <label>
+                    <input type="text" name="Description" value="@Model.Description" />
+                </label>
+                <h4> Телефон: </h4>
+                <label>
+                    <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" />
+                </label>
+                <h4> Email: </h4>
+                <label>
+                    <input type="text" name="Email" value="@Model.Email" />
+                </label>
+                <h4> Site: </h4>
+                <label>
+                    <input type="text" name="Site" value="@Model.Site" />
+                </label>
+                <h4> Facebook: </h4>
+                <label>
+                    <input type="text" name="Facebook" value="@Model.Facebook" />
+                </label>
+                <h4> Адреса компанії: </h4>
+                <label>
+                    <input type="text" name="Adress" value="@Model.Adress" />
+                </label>
+            <hr />
+            @if (Model.Status == true || Model.Status == null)
+            {
+            <h4 id="lbS"><b>Активно, зробити неактивною</b></h4>
+            }
+            else
+            {
+            <h4 id="lbS"><b>Неактивно, зробити активною</b></h4>
+                      
+            }
+            <input type="checkbox" name="Status" value="true" checked />
+            <hr />
+
+                <div class="form-group">
+                    <input type="submit" value="Зберегти" class="btn btn-default" />
+                </div>
+</form>
+        </div>
+    </div>
+
+
+<style>
+    #lbS {
+        color: blue;
+    }
+    #txt {
+        text-align: center;
+        color: darkblue;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    #logo {
+        width: 10%;
+    }
+</style>
+
+
+
+
+            @*@model Search_Work.Models.ArreaDatabase.Company
+
+                @{
+                    ViewData["Title"] = "Edit";
+                    Layout = "~/Views/Shared/_Layout.cshtml";
+                }
+
+                <hr />
+                <div >
+                    <h3 id="txt">Компанія - @Model.Name</h3>
+                    <div class="form-group" id="container">
+                        <img src="@Model.CompanyLogoUrl" width="100" />
+
+
+                    </div>
+                </div>
+                <hr />
+                <div id="container" class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Edit" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" name="cE"  value="@ViewBag.CompanyEmployers" />
+
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <hr />
+
+                            <!-- Image -->
+                            <div class="form-group">
+                                <h4>Foto компанії</h4>
+                                <div class="col-md-10">
+                                    <input type="file" name="Image" class="form-control" />
+                                </div>
+                            </div>
+                            <hr />
+                            @*<div class="form-group">
+                            <label asp-for="CompanyLogoUrl" class="control-label"></label>
+                            <input asp-for="CompanyLogoUrl" class="form-control" />
+                            <span asp-validation-for="CompanyLogoUrl" class="text-danger"></span>
+                        </div>
+                            <div class="form-group">
+                                <label asp-for="CityId" class="control-label"></label>
+                                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                                <span asp-validation-for="CityId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber" class="control-label"></label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Site" class="control-label"></label>
+                                <input asp-for="Site" class="form-control" />
+                                <span asp-validation-for="Site" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Facebook" class="control-label"></label>
+                                <input asp-for="Facebook" class="form-control" />
+                                <span asp-validation-for="Facebook" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Adress" class="control-label"></label>
+                                <input asp-for="Adress" class="form-control" />
+                                <span asp-validation-for="Adress" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Employers"  value="@ViewBag.CompanyEmployers" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="empId" value = "@ViewBag.EmpId" form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                @*<div>
+                    <a asp-action="Index">Back to List</a>
+                </div>*@
+
+

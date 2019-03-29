@@ -1,0 +1,124 @@
+﻿@model Search_Work.Arrea.Employer.Models.PageEditEmployerViewModel
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("ProfileCompany", "Company")"><b> Профіль компанії</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("EmployeeCompany", "Employee", new { companyId = Model.CompanyId })"><b> Працівники </b></a>
+
+
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+    <span style="float: left; width: 49%">
+        <h3><b>Співробітник </b></h3>
+    </span>
+    <span style="float: left; width: 49%">
+        @if (Model.Photo == null)
+        {
+        <img id="logo" src="~/images/person.png" title="@Model.Name" />
+        }
+        else
+        {
+        <img id="logo" src="@Model.Photo" title="@Model.Name" />
+
+        }
+    </span>
+
+
+</div>
+<div class="row" id="container">
+    <form method="post" asp-action="EditEmployee" asp-controller="Employee" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <input type="hidden" name="CompanyId" value="@Model.CompanyId" />
+
+        <h4>Прізвище</h4>
+        <input type="text" name="LastName" value="@Model.LastName" />
+        <h4>Ім'я</h4>
+        <input type="text" name="Name" value="@Model.Name" />
+        <hr />
+        <!-- Image -->
+        <div class="form-group">
+            <h4>Foto працівника:</h4>
+            <div class="col-md-10">
+                <input type="file" name="Image" class="form-control" value="@Model.Photo" />
+            </div>
+        </div>
+        <hr />
+        <hr />
+        <h4>Email</h4>
+        <input type="text" name="Name" value="@Model.Email" />
+        <h4>Tel.</h4>
+        <input type="text" name="Name" value="@Model.PhoneNumber" />
+
+        <hr />
+        @if (Model.Status == true || Model.Status == null)
+        {
+        <h4 id="lbS"><b>Відключити користувача</b></h4>
+        }
+        else
+        {
+        <h4 id="lbS"><b>Активізувати користувача</b></h4>
+
+        }
+        <input type="checkbox" name="Status" value="true" checked />
+        <hr />
+       
+        <button type="submit"> Зберегти </button>
+    </form>
+</div>
+<hr />
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-left: 150px;
+        font-size: 20px;
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>

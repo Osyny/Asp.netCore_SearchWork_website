@@ -1,0 +1,85 @@
+﻿
+@model Search_Work.Arrea.Candidate.Models.Resume.EditContactInfoViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+
+    <div style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.ResumeName</b></h3>
+
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>Змiнити контактні дані</b></h3>
+
+    </div>
+
+</div>
+<hr />
+<div id="container">
+
+    <form method="post" asp-action="EditContactInfo" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <hr />
+        <h4><b> Контактна і загальна інформація </b></h4>
+
+
+        <p> Прізвище : </p>
+        <input type="text" name="Surname" placeholder="" value="@Model.Surname" />
+        <p> Імя :  </p>
+        <input type="text" name="Name" placeholder="" value="@Model.Name" />
+        <p> Побатькові : </p>
+        <input type="text" name="FatherName" placeholder="" value="@Model.FatherName" />
+        <p> Стать :  </p>
+        <input type="text" name="Sex" placeholder="" value="@Model.Sex" />
+        <hr />
+        <p> Дата народження : @Model.Birthday.ToString("dd/MM/yyyy") </p>
+        <input type="date" name="Birthday" />
+        <p> Fasebook :  </p>
+        <input type="text" name="Facebook" placeholder="" value="@Model.Facebook" />
+
+        <p> Телефон : </p>
+        <input type="text" name="Phone" placeholder="" value="@Model.Phone" />
+        <p> Email : </p>
+        <input type="text" name="Email" placeholder="" value="@Model.Email" />
+        <p> Skipe :</p>
+        <input type="text" name="Skype" placeholder="" value="@Model.Skype" />
+
+        <hr>
+
+        <h4><b>Проживання </b></h4>
+        <hr />
+        <p> Країна </p>
+        <input type="text" name="Country" placeholder="" value="@Model.Country" />
+        <p> Область </p>
+        <input type="text" name="Region" placeholder="" value="@Model.Region" />
+        <p> Місто </p>
+        <input type="text" name="CityResident" placeholder="" value="@Model.CityResident" />
+        <p> Вулиця </p>
+        <input type="text" name="Street" placeholder="" value="@Model.Street" />
+        @*<p> Будинок </p>
+        <input type="text" name="ApartmentNumber" placeholder="" value="@Model.ApartmentNumber" />*@
+
+        <hr />
+
+        <h4>Сімейний стан -<b>@Model.FamilyStatusName</b></h4>
+
+        @Html.DropDownList("FamilyStatusId", Model.FamilyStatuses);
+        <hr />
+        <h4>Діти -<b>@Model.ChildrenStatus</b></h4>
+
+        @Html.DropDownList("ChildrenId", Model.Childrens);
+        <hr />
+        <button type="submit">Зберегти</button>
+
+    </form>
+  
+</div>
+
+

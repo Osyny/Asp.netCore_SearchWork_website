@@ -1,0 +1,128 @@
+﻿@model Search_Work.Arrea.Candidate.Models.PageSavedVacancyViewModel
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("PaternSearchVacancy", "Vacancy")"><b> Шаблони пошуку</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("ResponsesToResume", "Vacancy")"><b> Відгуки</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("SavedVacancy", "Vacancy")"><b> Збережені вакансії</b></a>
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+
+    <h4><b>Збережені вакансії </b></h4>
+
+
+</div>
+<hr />
+<div class="row" id="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h5><b>Компанія </b></h5>
+                </th>
+                <th>
+                    <h5><b>Посада</b></h5>
+                </th>
+
+                <th>
+                    <h5><b>Дата вакансії</b></h5>
+                </th>
+                <th>
+                    -
+                </th>
+                <th>
+                    -
+                </th>
+               
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model.Vacannies)
+            {
+            <tr>
+                <td>
+
+                    <h5> <b>@v.CompanyName</b></h5>
+
+                </td>
+                <td>
+                    <h5>@v.VacancyName</h5>
+                </td>
+                <td>
+                    <h5>@v.DataCreate</h5>
+                </td>
+                <td>
+                    <a href="@v.LinkToVacancy"> <h5> Подивитись </h5> </a>
+                   
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteSavedVacancy", "Vacancy", new { id = v.Id})"> <h5> Удалити </h5> </a>
+
+                </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    .topMenuNavigation {
+        margin-left: 150px;
+        padding: 5px;
+    }
+
+    #zcilkaTopMenuNavigation {
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        padding-left: 100px;
+        font-size: 20px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    img {
+        width: 5%;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>
+

@@ -1,0 +1,160 @@
+﻿@model Search_Work.Arrea.Employer.Models.PageEmployeeVacanciesViewModel
+@using Search_Work.Models.Helper
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+
+        @*<a id="zcilkaTopMenuNavigation" href="@Url.Action("ResponsesToResume", "Home", new { })"><b> Відгуки</b> </a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("SavedVacancy", "Home", new {  })"> <b>Збережені ( обране )</b> </a>*@
+        @*<a id="zcilkaTopMenuNavigation" href="@Url.Action("PaternSearchVacancy", "Home", new {  Area = "Candidate"})"> <b>Шаблони пошуку</b> </a>*@
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action( "EmploeeVacancies", "Vacancy", new{  })">Вакансії</a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action( "SavedResume", "Company", new{   })">Збережені резюме</a>
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+    <span style="float: left; width: 49%">
+        <h3><b>Вакансії </b></h3>
+    </span>
+    <span style="float: left; width: 49%">
+        <button type="button" onclick="location.href='@Url.Action("Create", "Vacancy" , new {})'"> Добавити вікансію </button>
+    </span>
+
+</div>
+<hr />
+<div id="container">
+    <div >
+        <form asp-action="EmploeeVacancies" asp-controller="Vacancy">
+            <input type="hidden" name="EmployeeId" value="@Model.EmployeeId" />
+            <input type="text" name="nameVacancy" placeholder=" Пошук по назві  " />
+            <button type="submit"> Пошук </button>
+        </form>
+    </div>
+</div>
+<hr />
+
+
+
+<div class="row" id="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h4><b>Назва </b></h4>
+                </th>
+              
+
+                <th>
+                    <h4><b>Статус </b></h4>
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model.EmployeeVacancies)
+            {
+            <tr>
+                <td>
+                    <a href="@Url.Action( "EditVacancy", "Vacancy", new { vacancyId = v.VacancyId })">
+                        <b>@v.NameVacancies, @v.Salary грн, </b>
+                    </a>
+                    <h5> @v.City</h5>
+                </td>
+               
+                <td>
+                    @if (v.Status == null || v.Status == "Архів")
+                    {
+                    <h5 style="color: blue"><b>Завершена </b></h5>
+                    }
+                    else if (v.Status == "Опублікована")
+                    {
+                    <h5 style="color: blue"><b>Опублікована </b></h5>
+
+                    <h5>@v.DatePublication</h5>
+
+
+                    <hr />
+                    <a id="container" href="@Url.Action("EditDatePublicationSubmit", "Vacancy" , new {VacancyId = v.VacancyId})"> Оновити дату публікації </a>
+                    @*<form asp-action="EditDatePublicationSubmit" asp-controller="Vacancy">
+                        @*<input asp-for="VacancyId" class="form-control" />*@
+                   @*     <input type="hidden" name="VacancyId" value="@v.VacancyId" />
+                        <button type="submit" value="Submit">Оновити дату публікації</button>
+
+                    </form>*@
+                    }
+                </td>
+
+                <td>
+                    @*<a href="@Url.Action("ResponsesToVacancy", "Vacancy", new { vacancyId = v.VacancyId } )"> <b>@v.CountLinkFeeback відгуків</b> </a>*@
+                    <a href="@Url.Action("ResponsesToVacancy", "Vacancy", new { vacancyId = v.VacancyId } )"> <b>@v.CountLinkNewFeeback (1) відгуків</b> </a>
+                    <p style="margin-left:30px"><b> @v.CountLinkViews переглядів </b></p>
+                    @*<a href="@Url.Action("ViewsVacancy", "Vacancy", new { vacancyId = vac.VacancyId } )"> @vac.CountLinkViews переглядів . </a>*@
+                </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<hr />
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-left: 70px;
+        font-size: 20px;
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>
+

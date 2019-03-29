@@ -1,0 +1,47 @@
+﻿@model Search_Work.Arrea.Candidate.Models.Resume.AddResumeImplementsProgectViewModel
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="container">
+
+    <div style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.Resume.Name</b></h3>
+
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>Реализованi проектu</b></h3>
+
+    </div>
+
+</div>
+
+<hr />
+<div id="container">
+    <form method="post" asp-action="AddImplementedProjects" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" name="ResumeId" value="@Model.Resume.Id" />
+        <hr />
+
+        <input type="text" name=".NameProgect" placeholder="Name" value="" />
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <h4><b> Період з : </b></h4>
+
+        <input type="date" name="DateWorkFrom" value="" />
+
+
+        <h4><b> до : </b></h4>
+
+        <input type="date" name="DateWorkTo" value="" />
+        <h4><b> Ссылка </b></h4>
+
+        <input type="text" name="LinkToProgect" value="" />
+
+        <hr />
+        <button type="submit">Зберегти</button>
+    </form>
+</div>

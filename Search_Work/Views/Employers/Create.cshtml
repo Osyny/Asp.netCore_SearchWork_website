@@ -1,0 +1,30 @@
+﻿
+@model Search_Work.Models.ViewModel.Employer.CreateEmployerViewModel
+
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div id="container">
+    <h3> Реєстрація роботодавця</h3>
+</div>
+<hr />
+<div id="container">
+    <form method="post" asp-action="Create" asp-controller="Employers" asp-area="">
+        <input type="submit" />
+    </form>
+</div>
+
+<style>
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+    }
+
+    .cont {
+    }
+</style>

@@ -1,0 +1,158 @@
+﻿@model Search_Work.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "About";
+}
+
+@{
+  string userRole = "";
+  if (User.Identity.IsAuthenticated)
+  {
+
+
+      if (User.IsInRole("Admin"))
+      {
+          userRole = "Admin";
+      }
+      else if (User.IsInRole("Employer"))
+      {
+          userRole = "Employer";
+      }
+      else if (User.IsInRole("Candidate"))
+      {
+          userRole = "Candidate";
+      }
+
+      var r = userRole;
+  }
+}
+
+
+<hr />
+<div id="container">
+    <h3> Кабінет </h3>
+</div>
+<hr />
+
+<div id="container">
+
+    <div id="menu">
+        @{
+            var i = ViewBag.Employee;
+        }
+        @if (User.Identity.Name == "admin@gmail.ua")
+        {
+            <hr />
+            <ul id="menu">
+                <li><a id="linc" asp-action="UserList" asp-controller="Roles">Кабінет Admin </a></li>
+            </ul>
+            <hr />
+            <ul id="menu">
+                <li><a id="linc" asp-area="" asp-controller="Cities" asp-action="Index">Міста</a></li>
+                <li><a id="linc" asp-area="" asp-controller="Companies" asp-action="Index">Компанії</a></li>
+                <li><a id="linc" asp-action="UserList" asp-controller="Roles">Користувачі </a></li>
+            </ul>
+            @*<li><a id="linc" asp-action="Index" asp-controller="Goods"> Товари</a></li>
+            <li><a id="linc" asp-controller="Emploees" asp-action="Index">Працівники</a></li>
+
+
+            <li><a id="linc" asp-action="Index" asp-controller="Providers">Постачальники </a></li>*@
+
+        }
+        else if (Model.Employer != null)
+        {
+            if (Model.Company == null)
+            {
+                <hr />
+                <ul id="menu">
+                    <li> <a id="linc" asp-controller="Employers" asp-action="PageIsExistCompany" asp-route-id="@Model.Employer.Id">Створити профіль</a></li>
+                </ul>
+            }
+            else
+            {
+                <hr />
+                <ul id="menu">
+
+                    @*<li> <a id="linc" href="@Url.Action( "Details", "Companies" ,new { id = Model.Company.Id,  empId = Model.Employer.Id })">Профіль</a></li>*@
+                    <li> <a id="linc" href="@Url.Action( "EditEmployee", "Employee", new{ employerId = Model.Employer.Id  })">Профіль</a></li>
+                    <li> <a id="linc" href="@Url.Action( "ProfileCompany", "Company", new{   })">Компанія</a></li>
+                    <li> <a id="linc" href="@Url.Action( "EmploeeVacancies", "Vacancy", new{  })">Вакансії</a></li>
+                    <li> <a id="linc" href="@Url.Action( "SavedResume", "Company", new{   })">Збережені резюме</a></li>
+                </ul>
+            }
+
+
+        }
+        else if (Model.Candidate != null)
+        {
+
+            <hr />
+            <ul id="menu">
+                <li> <a id="linc" asp-controller="Candidates" asp-action="Details" asp-route-id="@Model.Candidate.Id">Профіль</a></li>
+                <li> <a id="linc" href="@Url.Action( "Index", "Resume", new{ candidateId = @Model.Candidate.Id  })">Pезюме</a></li>
+
+              
+            </ul>
+            <hr />
+            <ul id="menu">
+               
+                <li> <a id="linc" asp-controller="Vacancy" asp-action="RecommendedVacancy" asp-route-id="">Рекомендовані вакансії</a></li>
+            </ul>
+
+
+
+        }
+
+
+    </div>
+
+    <hr />
+    <ul id="menu">
+        @*<li><a id="linc" asp-controller="BuyOrders" asp-action="Index">Купівля товару</a></li>
+
+            <li><a id="linc" asp-action="Index" asp-controller="SaleOrders">Продаж товару </a></li>
+            <li><a id="linc" asp-action="Index" asp-controller="Stoks">Склад </a></li>*@
+
+    </ul>
+
+</div>
+<hr />
+
+
+
+<style>
+    #menu, #menu li {
+        margin: 0;
+        padding: 0;
+    }
+
+    #menu {
+        text-align: center;
+    }
+
+        #menu li {
+            display: inline-block;
+            text-align: center;
+            width: 15%; /* задаем размер пункта можно в пикселях*/
+        }
+
+        #menu a {
+            display: block;
+            padding: 15px;
+            color: #fff;
+            font-size: 100%;
+            text-decoration: none;
+            background: #03658e;
+            margin-right: 5px; /* добавляем отступы между пунктами */
+        }
+
+            #menu a:hover {
+                background: #00ffff;
+            }
+
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+    }
+</style>

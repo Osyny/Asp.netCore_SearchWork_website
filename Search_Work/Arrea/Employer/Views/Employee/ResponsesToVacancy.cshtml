@@ -1,0 +1,151 @@
+﻿@using Search_Work.Models.ArreaDatabase.Resumes
+@model Search_Work.Arrea.Employer.Models.PageResumeViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    // Guid receivedId = Guid.Parse("a1e28e95-171c-4be7-bd35-55206edce93a");
+    Guid favorId = Guid.Parse("ead21743-a36c-4291-946c-2b247c8325a5");
+    Guid deniedId = Guid.Parse("c579d7d5-a4ab-451f-924a-5485fc100b43");
+}
+
+<div class="topMenuNavigation">
+    <div class="cont">
+        @*<a id="zcilka" href="@Url.Action("Index", "Resume")"><b> Moї резюме</b> </a>*@
+
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+    <div style="float: left; width: 49%">
+        <h4><b>Відгуки на вакансію</b></h4>
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>@Model.VacancyName</b></h3>
+    </div>
+
+</div>
+<hr />
+<div class="row" id="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h4><b>Резюме</b></h4>
+                </th>
+                <th>
+                    <h4><b>Дата</b></h4>
+                </th>
+
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var res in Model.Resumes)
+            {
+                if (res.StatusId == null)
+                {
+
+                    <tr>
+                        <td>
+                            <a href="@Url.Action( @*"EditResume"*@ "AboutResume", "ResumeHome", new { resumeId = res.Id, vacancyId = Model.VacancyId })">
+                                <b>@res.NameResume, @res.Salary грн</b>
+                            </a>
+                            <p>
+                                @res.Age років грн,
+
+                                <span> @res.Salary  грн/міс</span>
+
+                                @foreach (var city in res.Cities)
+                                {
+                                    <span>@city.CityName, </span>
+                                }
+
+
+                        </td>
+                        <td>
+                            @res.Date.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+
+                            <a href="@Url.Action("RefuseToResume", "ResumeHome", new { resumeId = res.Id, respTypeId = deniedId })"> <h4>Відмовити  </h4></a>
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("SaveResumeSubmit", "ResumeHome", new { resumeId = res.Id })"> <h4>В oбрані  </h4></a>
+
+
+                        </td>
+
+                    </tr>
+                }
+
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+        margin-left: 150px;
+        padding: 5px;
+    }
+
+    #zcilkaTopMenuNavigation {
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>
+

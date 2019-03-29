@@ -1,0 +1,53 @@
+﻿@model Search_Work.Arrea.Candidate.Models.Resume.AddResumeTrainingAndCourcesViewModel
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="container">
+
+    <div style="float: left; width: 49%">
+        <h3><b>Pезюме - @Model.Resume.Name</b></h3>
+
+    </div>
+    <div style="float: left; width: 49%">
+        <h3><b>Тренінги и курси</b></h3>
+
+    </div>
+
+</div>
+
+<hr />
+<div id="container">
+    <form method="post" asp-action="AddImplementedProjects" asp-controller="EditResume" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" name="ResumeId" value="@Model.Resume.Id" />
+        <hr />
+
+        <input type="text" name="Name" placeholder="Name" value="@Model.Name" />
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div>
+            <div style="float: left; width: 49%">
+                <h4><b> Період навчання </b></h4>
+
+                <input type="date" name="DateFrom" value="@Model.DateFrom.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <h4><b> до </b></h4>
+            <div style="float: left; width: 49%">
+                <input type="date" name="DateTo" value="@Model.DateTo.ToString("yyyy-MM-dd")" />
+
+            </div>
+        </div>
+        <hr />
+        <h4><b> Номер сертифіката </b></h4>
+        <input type="text" name="NumberCertification" placeholder="Name" value="@Model.NumberCertification" />
+
+
+        <hr />
+        <button type="submit">Зберегти</button>
+    </form>
+</div>

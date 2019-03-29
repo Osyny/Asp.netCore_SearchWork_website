@@ -1,0 +1,136 @@
+﻿@model Search_Work.Arrea.Employer.Models.CreateVacancyViewModel
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+
+        @*<a id="zcilkaTopMenuNavigation" href="@Url.Action("ResponsesToResume", "Home", new {  Area = "Candidate"})"><b> Відгуки</b> </a>
+            <a id="zcilkaTopMenuNavigation" href="@Url.Action("SavedVacancy", "Home", new {  Area = "Candidate"})"> <b>Збережені ( обране )</b> </a>
+            <a id="zcilkaTopMenuNavigation" href="@Url.Action("PaternSearchVacancy", "Home", new {  Area = "Candidate"})"> <b>Шаблони пошуку</b> </a>*@
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+    <h4><b>Добавити вакансію </b></h4>
+    </div>
+
+<hr />
+<div id="container">
+
+
+    <form method="post" asp-action="Create" asp-controller="Vacancy" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <h4> Назва : </h4>
+        <label>
+            <input type="text" name="Name" placeholder="Назва" value="@Model.Name" />
+        </label>
+        <h4> Зарплата : </h4>
+        <label>
+            <input type="text" name="Salary" placeholder="Заробітня плата" value="@Model.Salary" />
+        </label>
+
+
+
+        <h4> Місто : </h4>
+        @Html.DropDownList("CityId",
+                         Model.Cities.Select(cityVm => new SelectListItem()
+                         {
+                             Value = cityVm.Id.ToString(),
+                             Text = cityVm.CityName
+                         }))
+
+        <h4> Категорія : </h4>
+        @Html.DropDownList("FieldActivityId",
+                             Model.Fields.Select(categoryVm => new SelectListItem()
+                             {
+                                 Value = categoryVm.Id.ToString(),
+                                 Text = categoryVm.Name
+                             }))
+        <h4> Зайнятість : </h4>
+
+        @Html.DropDownList("EmploymentId",
+                             Model.Employments.Select(categoryVm => new SelectListItem()
+                             {
+                                 Value = categoryVm.Id.ToString(),
+                                 Text = categoryVm.NameField
+                             }))
+
+        <h4> Досвід : </h4>
+        @Html.DropDownList("ExperienceOfWorkId",
+                         Model.ExperienceOfWorks.Select(exVm => new SelectListItem()
+                         {
+                             Value = exVm.Id.ToString(),
+                             Text = exVm.NameField
+                         }))
+        <hr /><hr />
+
+     
+                <span> Опис : </span>
+                <input type="text" name="Description" placeholder="Опис" value="@Model.Description" />
+           
+                <span> Обовязки : </span>
+                <input type="text" name="Responsibilitie" placeholder="Обовязки" value="@Model.Responsibilitie" />
+           
+                <span> Вимоги</span>
+                <input type="text" name="Requirement" placeholder="Вимоги" value="@Model.Requirement" />
+            
+                <h4> Іноземні мови</h4>
+                <input type="text" name="ForeignLanguages" placeholder="Вимоги" value="@Model.ForeignLanguages" />
+            
+                <h4> Додаткові вимоги: </h4>
+                <input type="text" name="AdditionalRequirements" placeholder="Вимоги" value="@Model.AdditionalRequirements" />
+        
+  
+        <hr />
+        <label>
+            <input type="text" name="ContactPerson" placeholder="Контактне лице" value="@Model.ContactPerson" />
+        </label>
+        <label>
+            <input type="text" name="EmailContactPerson" placeholder="E-mail" value="@Model.EmailContactPerson" />
+        </label>
+        <label>
+            <input type="text" name="PhoneNumberContactPerson" placeholder="Телефон" value="@Model.PhoneNumberContactPerson" />
+        </label>
+
+        <div>
+
+
+
+
+            <input type="checkbox" id="UseCompanyId" name="UseCompanyContact" value="true">
+            <label for="UseCompanyId"> Використати контакти вказані для компанії </label>
+            <input type="checkbox" id="UsePersonalId" name="UsePersonalContact" value="true">
+            <label for="UsePersonalId"> Використовувати контакти особистого профілю </label>
+
+
+        </div>
+
+       <hr />
+
+
+
+        <button type="submit">Зберегти</button>
+    </form>
+
+</div>
+
+
+
+
+    <style>
+        #lineMenu {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 2px solid #073b40e6;
+            margin: 1em 0;
+            padding: 2px;
+        }
+    </style>

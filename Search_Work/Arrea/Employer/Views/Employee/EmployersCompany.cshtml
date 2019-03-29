@@ -1,0 +1,142 @@
+﻿@model Search_Work.Arrea.Employer.Models.PageEmployeesCompanyViewModel
+
+
+
+@{
+
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="topMenuNavigation">
+    <div class="cont">
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("ProfileCompany", "Company")"><b> Профіль компанії</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("EmployeeCompany", "Employee", new { companyId  = Model.CompanyId})"><b> Працівники </b></a>
+
+
+    </div>
+</div>
+
+<hr id="lineMenu" />
+<div class="row" id="container">
+    <span style="float: left; width: 49%">
+        <h3><b>Співробітники </b></h3>
+    </span>
+    @*<span style="float: left; width: 49%">
+        @*<button type="button" onclick="location.href='@Url.Action("Create", "Resume" , new {})'"> Нове резюме </button>
+    </span>*@
+
+
+</div>
+<hr />
+<div class="row" id="container">
+    <form asp-action="EmployeeCompany" asp-controller="Employee" id="selectEmploeeForNameForm">
+        @*<input type="hidden" name="EmployeeId" value="@Model.EmployeeId" />*@
+
+        <input type="hidden" name="CompanyId" value="@Model.CompanyId" />
+        <input type="text" placeholder="знайти працівника" name="nameEmp" value="" />
+        <button type="submit"> Найти працівника </button>
+    </form>
+</div>
+<hr />
+<div class="row" id="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h4><b>Назва </b></h4>
+                </th>
+               
+                <th>
+                    <h4><b>Статус </b></h4>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.EmployeesCompany)
+            {
+            <tr>
+             
+
+                <td>
+                    @{
+                        if (e.NameEmployer != null && e.NameEmployer != "")
+                        {
+                            <a href="@e.Link">
+                                <b>@e.NameEmployer</b>
+                            </a>
+
+                        }
+                        else
+                        {
+                            <a href="@e.Link">
+                                <b style="color:darkslategrey;">Редагувати</b>
+                            </a>
+                        }
+                    }
+
+                </td>
+                <td>
+                    @if (e == null || e.Status == false)
+                    {
+                    <h4 style="color:darkred;"><b>Відключений</b></h4>
+                    }
+                    else
+                    {
+                    <h4 style="color: blue;"><b>Активний</b></h4>
+
+                    }
+                  
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    th {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .topMenuNavigation {
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-left: 150px;
+        font-size: 20px;
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>

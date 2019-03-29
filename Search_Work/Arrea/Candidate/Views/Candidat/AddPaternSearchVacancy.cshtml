@@ -1,0 +1,57 @@
+﻿@model Search_Work.Arrea.Candidate.Models.AddPaternSearchVacancyViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h4><b>Новий шаблон пошуку</b></h4>
+
+</div>
+
+<hr />
+<div class="row" id="container">
+    @if (Model.UserName != null)
+    {
+        <form method="post" asp-action="AddPaternSearchVacancy" asp-controller="Vacancy">
+            <h4><b> Запит </b></h4>
+            <input type="text" name="Request" value="" />
+            <h4><b> Зарплата </b></h4>
+            <input type="text" name="Salary" value="" />
+            <h4><b> Місто </b></h4>
+            @Html.DropDownList("CityId", Model.Cities)
+            <h4><b> Сфера діяльності </b></h4>
+            @Html.DropDownList("FieldActivityId", Model.FieldActivity)
+            <h4><b> Зайнятість </b></h4>
+            @Html.DropDownList("EmploymentId", Model.Employments)
+            <h4><b> Досвід </b></h4>
+            @Html.DropDownList("ExperienceOfWorkId", Model.ExperienceOfWorks)
+
+            @*<button type="submit" onclick="location.href='@Url.Action("AboutVacancy", "Vacancy")'">
+                    Зберегти
+                </button>*@
+            <hr />
+            <hr />
+            <button type="submit">
+                Зберегти
+            </button>
+        </form>
+    }
+    else
+    {
+        <h4><b> Ви не авторизовані </b></h4>
+        <button type="submit" onclick="location.href='@Url.Action("Register", "Account")'">
+            Зареєструватись
+        </button>
+        <hr>
+        <button type="submit" onclick="location.href='@Url.Action("Vacansies", "Vacancy")'">
+            Повернутись
+        </button>
+        @*<button type="submit" onclick="location.href='@Url.Action("Index", "Номе")'">
+                На головну
+            </button>*@
+    }
+
+
+</div>

@@ -1,0 +1,107 @@
+﻿@model Search_Work.Arrea.Candidate.Models.PageVacanciesWhithPaternViewModel
+
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="topMenuNavigation">
+    <div class="cont">
+
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("PaternSearchVacancy", "Vacancy")"><b> Шаблони пошуку</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("ResponsesToResume", "Vacancy")"><b> Відгуки</b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("SavedVacancy", "Vacancy")"><b> Збережені вакансії</b></a>
+    </div>
+</div>
+
+
+<hr id="lineMenu" />
+
+<div class="row" id="container">
+    <h3><b>Відбір вакансій по шаблону </b></h3>
+</div>
+<hr>
+@foreach (var vacancy in Model.Vacancies)
+{
+<div class="row" id="container">
+
+    <a href="@Url.Action("AboutVacancy", "Vacancy", new { vacancyId = vacancy.Id})">
+        <h4>@vacancy.VacancyName - @vacancy.Salary  грн/міс </h4>
+    </a>
+    <hr />
+    <div class="c" style="float: left; width: 49%">
+        <h5><b>@vacancy.CompanyName</b></h5>
+
+    </div>
+
+    <div class="commonText">
+        @if (vacancy.LogoUrl == null)
+        {
+        <img id="logo" src="~/images/LogoCompany.png" title="@vacancy.CompanyName" />
+        }
+        else
+        {
+        <img id="logo" src="@vacancy.LogoUrl" title="@vacancy.CompanyName" />
+
+        }
+
+    </div>
+    <hr />
+    <p>@vacancy.DateCreate.ToString("dd/MM/yyyy") ;  @vacancy.City</p>
+
+    <hr />
+    @*<a href="@vacancy.LinkPageVacancy">докладніше</a>*@
+</div>
+ <hr />
+
+}
+
+
+
+
+<div class="row" id="container">
+    @Html.Partial("~/Views/Shared/Elements/CataloguePagination/_cataloguePagination.cshtml", @Model.Pagination)
+</div>
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    .topMenuNavigation {
+        margin-left: 150px;
+        padding: 5px;
+    }
+
+    #zcilkaTopMenuNavigation {
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        font-size: 16px;
+        padding-left: 50px;
+        padding-right: 16px;
+    }
+
+    img {
+        width: 5%;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>
+
+

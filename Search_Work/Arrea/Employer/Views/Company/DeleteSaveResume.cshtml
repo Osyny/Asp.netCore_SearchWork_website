@@ -1,0 +1,56 @@
+﻿
+
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="topMenuNavigation">
+    @*<div class="cont">
+            <a id="zcilkaTopMenuNavigation" href="@Url.Action("ProfileCompany", "Company")"><b> Профіль компанії</b></a>
+            <a id="zcilkaTopMenuNavigation" href="@Url.Action("EmployeersCompany", "Employee")"><b> Працівники </b></a>
+
+
+        </div>*@
+</div>
+
+<hr id="lineMenu" />
+
+<div class="row" id="container">
+    <h3><b>Резюме -  </b></h3>
+    <h4><b>Видалити резюме з збережених </b></h4>
+</div>
+
+<hr>
+<div class="row" id="container">
+    <form method="post" asp-action="DeleteSaveResumeSubmit" asp-controller="Company" name="myForm" >
+
+    </form>
+</div>
+
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    .topMenuNavigation {
+        margin-left: 150px;
+        padding: 5px;
+    }
+
+  
+
+
+    #zcilkaTopMenuNavigation {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        padding-left: 100px;
+        font-size: 20px;
+    }
+</style>

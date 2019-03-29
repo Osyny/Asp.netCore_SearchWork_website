@@ -1,0 +1,98 @@
+﻿@model Search_Work.Models.ViewModel.Home.Company.CompaniesPageByFieldActivityViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h3><b>Компанії в индустрії - @Model.FialdActivityName</b></h3>
+    <hr />
+    @Model.ActivityInCategoryCount компании
+    @if (Model.IsShowOnlyActive)
+    {
+        <a id="showOnlyOpenVacancy" data-isshowinitialvalue="true" href="/">Показати всі</a>
+    }
+    else
+    {
+        <a id="showOnlyOpenVacancy" data-isshowinitialvalue="false" href="/">Показати тільки з відкритими вакансіями</a>
+    }
+
+</div>
+
+<div class="row" id="container">
+
+
+    @foreach (var company in Model.CompaniesByFieldActivity)
+    {
+        string vacancyStr = company.VacancyCount == 0 ? "нет" : company.VacancyCount.ToString();
+
+        <div id="container1" >
+            <div class="c" style="float: left; width: 49%">
+
+                <div>
+                    @if (company.CompanyLogoUrl == null)
+                    {
+                        <img id="logo" src="~/images/LogoCompany.png" />
+                    }
+                    else
+                    {
+                        <img id="logo" src="@company.CompanyLogoUrl " />
+                    }
+
+                </div>
+            </div>
+            <a href="@Url.Action("AboutCompany", "CompanyHome", new {companyId = company.СompanyId})">
+
+
+                <span class="companyName">
+                    @company.CompanyName  - Вакансiй: <span>@company.VacancyCount</span>
+                </span>
+
+            </a>
+
+        </div>
+        <hr />
+
+
+    }
+
+
+</div>
+<hr />
+<div class="row" id="container">
+    @Html.Partial("~/Views/Shared/Elements/CataloguePagination/_cataloguePagination.cshtml", @Model.Pagination)
+</div>
+
+<script>
+    var link = document.querySelector('#showOnlyOpenVacancy');
+    link.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        var params = new URLSearchParams(location.search);
+
+        var initialIsShowOnlyOpen = evt.target.dataset['isshowinitialvalue'] === 'true';
+        var paramVal = !initialIsShowOnlyOpen;
+        if (params.get('isShowOnlyActive')) {
+            params.set('isShowOnlyActive', paramVal.toString());
+        } else {
+            params.append('isShowOnlyActive', paramVal.toString());
+        }
+        location.assign(location.origin + location.pathname + '?' + decodeURIComponent(params.toString()));
+    });
+</script>
+
+<style>
+    #container1 {
+        margin-left: 200px;
+        width: 50%;
+        background-color: dff0d8e6;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    #logo {
+        width: 15%;
+       
+    }
+</style>

@@ -1,0 +1,297 @@
+﻿@model Search_Work.Models.ViewModel.Home.HomePageViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="topMenu">
+    <div class="contMenu">
+
+
+
+        @if (ViewBag.UsersCount < 20)
+        {
+            <h3> <a id="linc" asp-action="Insert" asp-controller="InsertToDB"><b>Заповнити ДБ !!!</b></a></h3>
+
+        }
+
+
+    </div>
+</div>
+
+<hr id="lineMenu" />
+<form>
+    <hr />
+    <div>
+
+
+
+
+
+    </div>
+    <hr />
+    <div>
+        <h2> <b>Search_Work - САЙТ З ПОШУКУ РОБОТИ !</b></h2>
+    </div>
+
+    <hr />
+    <div class="row" id="container">
+
+
+
+        <div class="heading">
+            <h2 class="center">Вакансії від провідних компаній</h2>
+
+        </div>
+        <hr />
+        <div class="logoList">
+
+            @foreach (var company in Model.VacanciesFromTopCompanies)
+            {
+                <a href="@Url.Action("AboutCompany", "CompanyHome", new {companyId = company.CompanyId})">
+
+                    @{
+                        if (company.CompanyLogoUrl == null)
+                        {
+                            <img id="logo" src="~/images/LogoCompany.png" title="@company.CompanyName" />
+                        }
+                        else
+                        {
+                            <img id="logo" src="@company.CompanyLogoUrl" title="@company.CompanyName" />
+
+                        }
+                    }
+                </a>
+            }
+        </div>
+    </div>
+
+    <hr />
+    <div class="row" id="container">
+        <h3> <b>Нові вакансії</b></h3>
+        <hr />
+        <div class="row" id="container">
+
+            @foreach (var i in Model.NewVacancies)
+            {
+
+                <div id="menu">
+                    <div id="a">
+                        <span><a href="@Url.Action("AboutVacancy", "Vacancy", new { vacancyId = i.VacancyId })">@i.VacancyName</a></span>
+                        <span> - @i.Salary</span>
+                        <span>&nbsp;грн</span>
+                        <p>
+                            @i.CompanyName , @i.CityName
+                        </p>
+                    </div>
+                </div>
+
+            }
+
+
+        </div>
+    </div>
+
+    <hr />
+
+
+
+
+
+    <div class="row" id="container">
+        <h3> <b>Вакансії по сферах діяльності</b></h3>
+        </hr>
+        <div class="row" id="container" style="float: left; width: 49%; margin-left: 10px;">
+            @for (var i = 0; i < Model.VacanciesByFieldActivity.Count() / 2; i++)
+            {
+                <div>
+                    <div id="a">
+                        <a href="@Url.Action("VacancyCatalogByActivityField", "Vacancy",
+                        new { fieldActivityId =  Model.VacanciesByFieldActivity[i].FieldId })">@Model.VacanciesByFieldActivity[i].FieldName</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row" id="container" style="float: left; width: 49%; margin-left: 20px;">
+            @for (var i = Model.VacanciesByFieldActivity.Count() / 2; i < Model.VacanciesByFieldActivity.Count(); i++)
+            {
+                <div>
+                    <div id="a">
+                        <a href="@Url.Action("VacancyCatalogByActivityField", "Vacancy", new { fieldActivityId = Model.VacanciesByFieldActivity[i].FieldId })">@Model.VacanciesByFieldActivity[i].FieldName</a>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    @*@foreach (var field in Model.VacanciesByFieldActivity)
+        {
+
+            <div>
+                <div>
+                    <a href="@Url.Action("VacancyCatalogByActivityField", "Vacancy", new { fieldActivityId = field.FieldId })">@field.FieldName</a>
+                </div>
+            </div>
+
+        }*@
+
+
+
+    <hr />
+    <div class="row" id="container">
+
+
+
+        <h3 class="left primaryColor"><b>Вакансії по містам</b></h3>
+        <hr />
+
+        <div class="row" id="container" style="float: left; width: 49%; margin-left: 10px;">
+            @for (var i = 0; i < Model.VacanciesByCity.Count() / 2; i++)
+            {
+                <div>
+                    <div id="a">
+                        <a href="@Url.Action("VacancyCatalogByCityld", "Vacancy", new { cityId = Model.VacanciesByCity[i].CityId })">@Model.VacanciesByCity[i].CityName</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row" id="container" style="float: left; width: 49%; margin-left: 20px;">
+            @for (var i = Model.VacanciesByCity.Count() / 2; i < Model.VacanciesByCity.Count(); i++)
+            {
+                <div>
+                    <div id="a">
+                        <a href="@Url.Action("VacancyCatalogByCityld", "Vacancy", new { cityId = Model.VacanciesByCity[i].CityId })">@Model.VacanciesByCity[i].CityName</a>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+    @*@foreach (var city in Model.VacanciesByCity)
+    {
+        <p>
+            <a href="@Url.Action("VacancyCatalogByCityld", "Vacancy", new { cityId = city.CityId })">@city.CityName</a>
+        </p>
+    }
+
+    </div>*@
+
+
+
+</form>
+
+
+<style>
+
+    #menu {
+        margin: 0;
+        padding: 0;
+    }
+
+    #menu {
+        text-align: center;
+    }
+
+    #menu {
+        display: inline-block;
+        text-align: center;
+        width: 20%; /* задаем размер пункта можно в пикселях*/
+    }
+
+    #menu, #a {
+        padding: 3px;
+        font-size: 100%;
+        margin-right: 10px; /* добавляем отступы между пунктами */
+    }
+
+
+
+
+    #cont {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+    }
+
+    img {
+        width: 60%;
+    }
+
+    #logo {
+        width: 70px;
+        padding: 5px;
+    }
+
+    h2 {
+        text-align: center;
+        color: darkblue;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .masterForm {
+        background-color: antiquewhite;
+    }
+
+    #zcilkaTopMenuNavigation {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        padding-left: 100px;
+        font-size: 20px;
+    }
+
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>
+<style>
+    #lineMenu {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #073b40e6;
+        margin: 1em 0;
+        padding: 2px;
+    }
+
+    .topMenu {
+        margin-left: 150px;
+        padding: 5px;
+    }
+
+
+
+    .contMenu {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #zcilkaTopMenu {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+        color: darkblue;
+        padding-left: 100px;
+        font-size: 20px;
+    }
+
+    img {
+        width: 5%;
+    }
+
+    &:hover {
+        background-color: rgba(115,220, 224, 1);
+    }
+</style>
+

@@ -1,0 +1,124 @@
+﻿@model Search_Work.Arrea.Employer.Models.PageAboutCompanyViewModel
+
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="topMenuNavigation">
+    <div class="cont">
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("ProfileCompany", "Company")"><b> Профіль компанії  </b></a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action("EmployeeCompany", "Employee", new { companyId  = Model.CompanyId})"><b> Працівники </b></a>
+         @*<a id="zcilkaTopMenuNavigation" href="@Url.Action( "ProfileCompany", "Company", new{   })">Компанія</a>*@
+         <a id="zcilkaTopMenuNavigation" href="@Url.Action( "EmploeeVacancies", "Vacancy", new{  })">Вакансії</a>
+        <a id="zcilkaTopMenuNavigation" href="@Url.Action( "SavedResume", "Company", new{   })">Збережені резюме</a>
+
+    </div>
+</div>
+
+<hr id="lineMenu" />
+
+<div class="row" id="container">
+    <h3>Профіль компанії</h3> - <h3 style="color: darkblue; "><b>@Model.NameConpany</b></h3>
+</div>
+
+<hr>
+<div class="row" id="container">
+    <div class="c" style="float: left; width: 49%"> 
+        <h3 style="color: blue; "><b>@Model.Status</b></h3>
+        <hr />
+        <h3><b>Компанія:</b> @Model.NameConpany</h3>
+        <h3><b>Facebook:</b>  @Model.Fasebook</h3>
+        <h3><b>Sate:</b>  @Model.Site</h3>
+        
+
+        </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.CompanyLogo == null)
+            {
+            <img id="logo" src="~/images/LogoCompany.png" title="@Model.NameConpany" />
+            }
+            else
+            {
+            <img id="logo" src="@Model.CompanyLogo" title="@Model.NameConpany" />
+
+            }
+
+        </div>
+    </div>
+
+</div>
+<hr>
+<div class="row" id="container">
+    <h3> <b>Tel.:</b> @Model.Phone</h3>
+    <h3><b>Email:</b>  @Model.Email</h3>
+
+
+</div>
+    <hr>
+    <div class="row" id="container">
+        <div class="c" style="float: left; width: 49%">
+
+            <h3>Адреса:</h3>
+            <hr />
+            <h3>  @Model.Address</h3>
+            @*<h3>Sate:  @Model.Site</h3>*@
+
+
+        </div>
+        <div class="c" style="float: left; width: 49%">
+
+            <div class="commonText">
+
+                <h4><b>Опис та історія компанії :</b></h4>
+                <hr />
+                <h4>@Model.Description</h4>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row" id="container">
+
+        <h3><b><a href="@Url.Action("Edit", "Companies", new { id = Model.CompanyId, empId = Model.EmployeeId })">Змінити</a></b></h3>
+    </div>
+
+    <style>
+        #lineMenu {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 2px solid #073b40e6;
+            margin: 1em 0;
+            padding: 2px;
+        }
+
+        .topMenuNavigation {
+            margin-left: 50px;
+            padding: 5px;
+        }
+
+
+        .cont {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #zcilkaTopMenuNavigation {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: block;
+            color: darkblue;
+            padding-left: 70px;
+            font-size: 20px;
+        }
+
+        img {
+            width: 25%;
+        }
+
+        &:hover {
+            background-color: rgba(115,220, 224, 1);
+        }
+    </style>

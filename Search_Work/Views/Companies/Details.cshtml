@@ -1,0 +1,100 @@
+﻿@model Search_Work.Models.ArreaDatabase.Company
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row" id="container">
+    <h3><b>Профіль компанії</b></h3>
+</div>
+<hr />
+<div class="row" id="container">
+    <div class="c" style="float: left; width: 49%">
+        <h3><b>@Model.Name</b></h3>
+
+    </div>
+    <div class="c" style="float: left; width: 49%">
+
+        <div class="commonText">
+            @if (Model.CompanyLogoUrl == null)
+            {
+                <img id="logo" src="~/images/LogoCompany.png" title="@Model.Name" />
+            }
+            else
+            {
+                <img id="logo" src="@Model.CompanyLogoUrl" title="@Model.Name" />
+
+            }
+
+        </div>
+    </div>
+</div>
+<hr />
+<div id="container">
+    @{
+        if (Model.Status == true)
+        {
+            <h3 style="color:darkblue"><b>Активна</b></h3>
+        }
+        else if (Model.Status == false || Model.Status == null)
+        {
+            <h3 style="color:darkblue"><b>Активна</b></h3>
+        }
+
+    }
+</div>
+
+<hr />
+<div id="container">
+
+
+
+
+
+    <div>
+
+        <h5> <b>Місто : </b>&nbsp;&nbsp; @Html.DisplayFor(model => model.City.Name)</h5>
+        <hr />
+        <h5> <b> Опис :</b> </h5>
+        <h5>@Html.DisplayFor(model => model.Description)</h5>
+        <hr />
+        <h5><b> Телефон :</b>&nbsp;&nbsp;@Html.DisplayFor(model => model.PhoneNumber)</h5>
+        <h5><b>Email :</b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Email)</h5>
+        <h5><b> Сайт :</b>&nbsp;&nbsp;@Html.DisplayFor(model => model.Site) </h5>
+        <h5><b>Facebook : </b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Facebook)</h5>
+        <h5><b>Адресса : </b>&nbsp;&nbsp; @Html.DisplayFor(model => model.Adress) </h5>
+    </div>
+
+</div>
+<hr />
+<div id="container">
+    <a id="edit" href="@Url.Action("Edit", "Companies", new { id = @Model.Id ,  empId = ViewBag.EmpId })">Редагувати</a>
+    @*<a id="edit" asp-action="Edit" asp-route-id="@Model.Id">Редагувати</a>*@
+    @* &nbsp;&nbsp;<a asp-action="Index">Повернутись до списку</a>*@
+</div>
+
+
+<style>
+
+
+    img {
+        width: 15%;
+    }
+
+    /*img {
+            width: 20%;
+            padding: 20px;
+            margin: 50px;
+            text-align: center;
+        }*/
+
+    #logo {
+        text-align: center;
+        color: darkblue;
+        font-family: 'Times New Roman', Times, serif;
+    }
+</style>
+
+

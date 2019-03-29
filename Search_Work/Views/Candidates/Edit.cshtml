@@ -1,0 +1,145 @@
+﻿@model Search_Work.Models.ArreaDatabase.Candidate
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div id="container">
+    <h4>Редагувати профіль - @Model.Email</h4>
+    <ul id="avatar">
+        <li><img src="@Model.Avatar" /></li>
+    </ul>
+</div>
+
+
+
+<hr />
+<div class="row" id="container">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <hr />
+
+            <!-- Image -->
+            <div class="form-group">
+                <h4>Avatar</h4>
+                <div class="col-md-10">
+                    <input type="file" name="Image" class="form-control" />
+                </div>
+            </div>
+            <hr />
+
+            <div class="form-group">
+                <h4>Прізвище</h4>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Імя</h4>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Побатькові</h4>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <h4>Стать</h4>
+                <input asp-for="Sex" class="form-control" />
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <h4>День народження</h4>
+                <input type="date" asp-for="Birthday" class="form-control" />
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Сімейний стан</h4>
+                
+                <select  asp-validation-for="FamilyStatusId" class="form-control" asp-items="ViewBag.FamilyStatusId"></select>
+            </div>
+            <div class="form-group">
+                <h4>Діти</h4>
+                <label asp-for="ChildrenId" class="control-label"></label>
+                <select asp-for="ChildrenId" class="form-control" asp-items="ViewBag.ChildrenId"></select>
+            </div>
+            <div class="form-group">
+                <h4>Місто</h4>
+                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <h4>Країна</h4>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Область</h4>
+                <input asp-for="Region" class="form-control" />
+                <span asp-validation-for="Region" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Вулиця</h4>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>№ будинку</h4>
+                <input asp-for="ApartmentNumber" class="form-control" />
+                <span asp-validation-for="ApartmentNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Телефон</h4>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Email</h4>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Skipe</h4>
+                <input asp-for="Skype" class="form-control" />
+                <span asp-validation-for="Skype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Facebook</h4>
+                <input asp-for="Facebook" class="form-control" />
+                <span asp-validation-for="Facebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h4>Linkedin</h4>
+                <input asp-for="Linkedin" class="form-control" />
+                <span asp-validation-for="Linkedin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<style>
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+    }
+
+    .cont {
+    }
+</style>
+

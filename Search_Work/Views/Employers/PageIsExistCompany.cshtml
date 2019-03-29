@@ -1,0 +1,33 @@
+﻿@model Search_Work.Models.ViewModel.Employer.PageIsExistCompanyViewModel
+@{
+    ViewData["Title"] = "PageIsExistCompany";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div id="container">
+
+   
+    <ul id="menu">
+        <li id="container"><a href='@Url.Action("Create", "Companies", new { Id = @Model.Employer.Id })'><h3>Створити компанію </h3></a></li>
+       
+        <li id="container"> <a  href='@Url.Action("SearchCompanyName", "Employers", new { Id = Model.Employer.Id })'><h3>Компанія зареєстрована, добавити до працівників компанії </h3></a></li>
+    </ul>
+
+   
+</div>
+
+<style>
+
+   
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+        margin: 50px;
+    }
+
+    .cont {
+    }
+</style>

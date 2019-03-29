@@ -1,0 +1,188 @@
+﻿@model Search_Work.Models.ViewModel.Home.Resumes.PageCatalogResumeByFieldViewModel
+@using Search_Work.Models.Helper;
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="row" id="container">
+    <h2><b>@Model.FialdActivityName -  (<span>@Model.CountResumeByFieldActivity</span>)</b></h2>
+</div>
+
+<div class="row" id="container">
+
+    <form asp-action="ResumeCatalogByActivityField" asp-controller="ResumeHome" id="filterDateForm">
+        <input type="hidden" name="fieldActivityId" value="@Model.FieldId" />
+        <input type="hidden" name="currentPage" value="@Model.CurrentPage" />
+
+        <select id="filterByDateSelect" name="dateFilter" placeholder="за рік">
+
+
+            @{
+                if (Model.SelectedFilter == FieldsMonth.YearId)
+                {
+                    <option value="@FieldsMonth.YearId" selected>@FieldsMonth.Year.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.YearId">@FieldsMonth.Year.NameFild </option>
+                }
+
+                if (Model.SelectedFilter == FieldsMonth.MonthId)
+                {
+                    <option value="@FieldsMonth.MonthId" selected>@FieldsMonth.Month.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.MonthId">@FieldsMonth.Month.NameFild</option>
+                }
+
+                if (Model.SelectedFilter == FieldsMonth.WeеkId)
+                {
+                    <option value="@FieldsMonth.WeеkId" selected>@FieldsMonth.Weеk.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.WeеkId">@FieldsMonth.Weеk.NameFild</option>
+                }
+
+                if (Model.SelectedFilter == FieldsMonth.DayId)
+                {
+                    <option value="@FieldsMonth.DayId" selected>@FieldsMonth.Day.NameFild </option>
+                }
+                else
+                {
+                    <option value="@FieldsMonth.DayId">@FieldsMonth.Day.NameFild</option>
+                }
+            }
+
+        </select>
+    </form>
+
+    <form asp-action="ResumeCatalogByActivityField" asp-controller="ResumeHome" id="filterTypeSortForm">
+        <input type="hidden" name="fieldActivityId" value="@Model.FieldId" />
+        <input type="hidden" name="currentPage" value="@Model.CurrentPage" />
+
+        <p> Сортувати : </p>
+        <select placeholder="По з/п" id="filterTypeSelect" name="filterType">
+            @{
+                if (Model.TypeSortFilter == TypesSortResume.SalaryId)
+                {
+                    <option value="@TypesSortResume.SalaryId" selected>@TypesSortResume.Salary.NameFild</option>
+                }
+                else
+                {
+
+                    <option value="@TypesSortResume.SalaryId">@TypesSortResume.Salary.NameFild</option>
+
+                }
+
+                if (Model.TypeSortFilter == TypesSortResume.DataId)
+                {
+                    <option value="@TypesSortResume.DataId" selected>@TypesSortResume.Data.NameFild</option>
+                }
+                else
+                {
+                    <option value="@TypesSortResume.DataId">@TypesSortResume.Data.NameFild</option>
+                }
+
+            }
+        </select>
+    </form>
+
+    <script>
+        var filterDateForm = document.querySelector('#filterDateForm');
+        var select = document.querySelector('#filterByDateSelect');
+        select.addEventListener('change', function () {
+            filterDateForm.submit();
+        });
+
+        // ----  Sort Type -----
+        var filterTypeSort = document.querySelector('#filterTypeSortForm');
+        var select = document.querySelector('#filterTypeSelect');
+        select.addEventListener('change', function () {
+            filterTypeSort.submit();
+        });
+    </script>
+
+
+
+
+</div>
+
+
+
+
+<div>
+
+    @foreach (var resume in Model.ResumesByField)
+    {
+        <div class="row" id="container">
+            <span style="float: left; width: 49%">
+                <a href="@Url.Action("AboutResume", "ResumeHome", new { resumeId = resume.Id })">
+                    <span>@resume.Name </span>
+                </a>
+                <span> - @resume.Salary  грн/міс</span>
+
+            </span>
+            <span style="float: left; width: 49%">
+                <span>(@resume.DateCreate.ToString("dd/MM/yyyy"))</span>
+                <hr />
+                @if (resume.FotoUrl == null)
+                {
+                    <img id="logo" src="~/images/person.png" title="@resume.Name" />
+                }
+                else
+                {
+                    <img id="logo" src="@resume.FotoUrl" title="@resume.Name" />
+
+                }
+
+            </span>
+
+
+
+            <div>
+                <span>
+
+                    @foreach (var city in resume.Cities)
+                    {
+                        if (city.CityName != null)
+                        {
+                            <span>@city.CityName, </span>
+
+                        }
+                        else
+                        {
+                            <span>  </span>
+                        }
+
+
+                    }
+                </span>
+            </div>
+            <span>
+                <h4><span>@resume.Age р. </span></h4>
+                <h4>@resume.TypeEmployment?.Name</h4>
+                <span>@resume.Description</span>
+
+                <a href="@resume.LinkPageResum"><span> подробнее </span></a>
+            </span>
+
+
+        </div>
+    }
+</div>
+
+<hr />
+
+<div class="row" id="container">
+    @Html.Partial("~/Views/Shared/Elements/CataloguePagination/_cataloguePagination.cshtml", @Model.Pagination)
+</div>
+
+<style>
+    #logo {
+        width: 70px;
+    }
+</style>

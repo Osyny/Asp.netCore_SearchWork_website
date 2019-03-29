@@ -1,0 +1,99 @@
+﻿@model Search_Work.Models.ArreaDatabase.Company
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+    <div id="container">
+    <h4>Зареєструвати компанію</h4>
+</div>
+
+    <hr />
+    <div class="row"  id="container">
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Image -->
+                <div class="form-group">
+                    <h4>Foto компанії</h4>
+                    <div class="col-md-10">
+                        <input type="file" name="Image" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4>Місто</h4>
+                    <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityName"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Requirements" class="control-label"></label>
+                    <input asp-for="Requirements" class="form-control" />
+                    <span asp-validation-for="Requirements" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Site" class="control-label"></label>
+                    <input asp-for="Site" class="form-control" />
+                    <span asp-validation-for="Site" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Facebook" class="control-label"></label>
+                    <input asp-for="Facebook" class="form-control" />
+                    <span asp-validation-for="Facebook" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Adress" class="control-label"></label>
+                    <input asp-for="Adress" class="form-control" />
+                    <span asp-validation-for="Adress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="Id" value="@ViewBag.EmpId" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+<style>
+    #container {
+        background-color: aliceblue;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 25px;
+    }
+
+    .cont {
+    }
+</style>
